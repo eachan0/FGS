@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="system.mapper.SysUserMapper">
+  <resultMap id="userBaseResultMap" type="user">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="nickname" jdbcType="VARCHAR" property="nickname" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+    <result column="isExpired" jdbcType="VARCHAR" property="isExpired" />
+    <result column="isLock" jdbcType="VARCHAR" property="isLock" />
+    <result column="isEnable" jdbcType="VARCHAR" property="isEnable" />
+    <result column="cratetime" jdbcType="TIMESTAMP" property="crateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, nickname, username, password, sex, isExpired, isLock, isEnable, cratetime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="userBaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sys_user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sys_user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="user">
+    insert into sys_user (id, nickname, username,
+      password, sex, isExpired,
+      isLock, isEnable, cratetime
+      )
+    values (#{id,jdbcType=INTEGER}, #{nickname,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR},
+      #{password,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{isexpired,jdbcType=VARCHAR},
+      #{islock,jdbcType=VARCHAR}, #{isenable,jdbcType=VARCHAR}, #{cratetime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="user">
+    insert into sys_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="nickname != null">
+        nickname,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="isexpired != null">
+        isExpired,
+      </if>
+      <if test="islock != null">
+        isLock,
+      </if>
+      <if test="isenable != null">
+        isEnable,
+      </if>
+      <if test="cratetime != null">
+        cratetime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="nickname != null">
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="isexpired != null">
+        #{isexpired,jdbcType=VARCHAR},
+      </if>
+      <if test="islock != null">
+        #{islock,jdbcType=VARCHAR},
+      </if>
+      <if test="isenable != null">
+        #{isenable,jdbcType=VARCHAR},
+      </if>
+      <if test="cratetime != null">
+        #{cratetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="user">
+    update sys_user
+    <set>
+      <if test="nickname != null">
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="isexpired != null">
+        isExpired = #{isexpired,jdbcType=VARCHAR},
+      </if>
+      <if test="islock != null">
+        isLock = #{islock,jdbcType=VARCHAR},
+      </if>
+      <if test="isenable != null">
+        isEnable = #{isenable,jdbcType=VARCHAR},
+      </if>
+      <if test="cratetime != null">
+        cratetime = #{cratetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="user">
+    update sys_user
+    set nickname = #{nickname,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      isExpired = #{isexpired,jdbcType=VARCHAR},
+      isLock = #{islock,jdbcType=VARCHAR},
+      isEnable = #{isenable,jdbcType=VARCHAR},
+      cratetime = #{cratetime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+</mapper>
