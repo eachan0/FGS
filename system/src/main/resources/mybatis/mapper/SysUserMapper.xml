@@ -139,4 +139,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
+  <select id="getUserByUserName" parameterType="string" resultType="user">
+    select * from sys_user where username = #{username}
+  </select>
 </mapper>

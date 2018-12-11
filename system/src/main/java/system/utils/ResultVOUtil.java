@@ -1,6 +1,7 @@
 package system.utils;
 
 import system.DO.ResultVO;
+import system.enums.ExcptionEnum;
 
 /**
  * @program: FGS
@@ -18,5 +19,26 @@ public class ResultVOUtil {
     }
     public static ResultVO success(){
         return success(null);
+    }
+    public static ResultVO error(){
+        ResultVO<Object> resultVO = new ResultVO<>();
+        resultVO.setCode(1);
+        resultVO.setMsg("errot");
+        resultVO.setData(null);
+        return resultVO;
+    }
+    public static ResultVO error(Integer code ,String msg){
+        ResultVO<Object> resultVO = new ResultVO<>();
+        resultVO.setCode(code);
+        resultVO.setMsg(msg);
+        resultVO.setData(null);
+        return resultVO;
+    }
+    public static ResultVO error(ExcptionEnum excptionEnum){
+        ResultVO<Object> resultVO = new ResultVO<>();
+        resultVO.setCode(excptionEnum.getCode());
+        resultVO.setMsg(excptionEnum.getMsg());
+        resultVO.setData(null);
+        return resultVO;
     }
 }

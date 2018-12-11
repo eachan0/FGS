@@ -125,4 +125,7 @@
       parentid = #{parentid,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="getMenuListByUserName" resultType="menu" parameterType="string" statementType="CALLABLE">
+    {call getMenuListByUserName(#{username,jdbcType=VARCHAR})}
+  </select>
 </mapper>

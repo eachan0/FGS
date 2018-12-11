@@ -16,6 +16,10 @@ mybatis:
   config-location: classpath:mybatis/mybatis-config.xml
   mapper-locations: classpath:mybatis/mapper/*.xml
   type-aliases-package: system.DO
+token:
+  expire:
+    seconds: 7200
+  jwtSecret: (XIAO:)_$^11244^%$_(WEI:)_@@++--(LAO:)_++++_.sds_(SHI:)
 
 #开发环境
 ---
@@ -26,7 +30,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: 123456
-    url: jdbc:mysql://localhost:3306/sys_oss?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/bysj_fgs?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC
     type: com.alibaba.druid.pool.DruidDataSource
 
 logging:
