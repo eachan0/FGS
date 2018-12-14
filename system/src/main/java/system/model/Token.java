@@ -1,5 +1,7 @@
 package system.model;
 
+import lombok.ToString;
+
 import java.io.Serializable;
 
 /**
@@ -9,6 +11,7 @@ import java.io.Serializable;
  *
  *         2017年8月4日
  */
+@ToString
 public class Token implements Serializable {
 
 	private static final long serialVersionUID = 6314027741784310221L;

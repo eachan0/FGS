@@ -45,12 +45,10 @@ public class SecurityHandler {
 	@Bean
 	public AuthenticationSuccessHandler loginSuccessHandler() {
 		return new AuthenticationSuccessHandler() {
-
 			@Override
 			public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 					Authentication authentication) throws IOException, ServletException {
 				LoginUser user = (LoginUser) authentication.getPrincipal();
-
 				Token token = tokenService.saveToken(user);
 				ResponseUtil.responseJson(response, HttpStatus.OK.value(), token);
 			}
@@ -124,10 +122,8 @@ public class SecurityHandler {
 			public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response,
 					Authentication authentication) throws IOException, ServletException {
 				ResponseInfo info = new ResponseInfo(HttpStatus.OK.value() + "", "退出成功");
-
 				String token = TokenFilter.getToken(request);
 				tokenService.deleteToken(token);
-
 				ResponseUtil.responseJson(response, HttpStatus.OK.value(), info);
 			}
 		};

@@ -9,6 +9,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 import system.DTO.LoginUser;
 import system.service.TokenService;
+import system.service.impl.UserDetailsServiceImpl;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -31,7 +32,7 @@ public class TokenFilter extends OncePerRequestFilter {
 	@Autowired
 	private TokenService tokenService;
 	@Autowired
-	private UserDetailsService userDetailsService;
+	private UserDetailsServiceImpl userDetailsService;
 	private static final Long MINUTES_10 = 10 * 60 * 1000L;
 
 	@Override
@@ -81,7 +82,6 @@ public class TokenFilter extends OncePerRequestFilter {
 		if (StringUtils.isEmpty(token)) {
 			token = request.getHeader(TOKEN_KEY);
 		}
-
 		return token;
 	}
 
