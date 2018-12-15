@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,6 +18,7 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+import org.springframework.web.cors.CorsUtils;
 import security.filter.TokenFilter;
 import system.service.impl.UserDetailsServiceImpl;
 
@@ -51,18 +53,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable();
-        http.cors().disable();
+        ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry registry
+                = http.authorizeRequests();
+        registry.requestMatchers(CorsUtils::isPreFlightRequest).permitAll();//让Spring security放行所有preflight request
 
+
+        http.csrf().disable();
         // 基于token，所以不需要session
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
-        http.authorizeRequests().anyRequest().authenticated();
 
         http.formLogin().loginPage("/login.html").loginProcessingUrl("/login")
                 .successHandler(authenticationSuccessHandler).failureHandler(authenticationFailureHandler).and()
                 .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint);
         http.logout().logoutUrl("/logout").logoutSuccessHandler(logoutSuccessHandler);
+
+        http.authorizeRequests().anyRequest().authenticated();
+
         // 解决不允许显示在iframe的问题
         http.headers().frameOptions().disable();
         http.headers().cacheControl();

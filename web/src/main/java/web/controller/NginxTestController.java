@@ -17,7 +17,6 @@ public class NginxTestController {
     @ApiOperation(value = "nginx测试接口",notes = "...")
     @GetMapping("/test")
     public ResultVO test(){
-//        int i =1/0;
         return ResultVOUtil.success();
     }
 }
