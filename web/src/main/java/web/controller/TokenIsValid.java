@@ -13,10 +13,10 @@ import system.utils.ResultVOUtil;
  * @create: 2018-12-03 17:15
  **/
 @RestController
-public class NginxTestController {
-    @ApiOperation(value = "nginx测试接口",notes = "...")
-    @GetMapping("/test")
-    public ResultVO test(){
+public class TokenIsValid {
+    @ApiOperation(value = "token有效验证接口",notes = "...")
+    @GetMapping("/tokenIsValid")
+    public ResultVO tokenIsValid(){
         return ResultVOUtil.success();
     }
 }

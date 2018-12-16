@@ -21,7 +21,6 @@ public class Token implements Serializable {
 	private Long loginTime;
 
 	public Token(String token, Long loginTime) {
-		super();
 		this.token = token;
 		this.loginTime = loginTime;
 	}

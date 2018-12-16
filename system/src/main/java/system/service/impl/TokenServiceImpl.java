@@ -109,7 +109,6 @@ public class TokenServiceImpl implements TokenService {
         } catch (Exception e) {
             log.error("{}", e);
         }
-
         return null;
     }
 
@@ -125,7 +124,6 @@ public class TokenServiceImpl implements TokenService {
                 return true;
             }
         }
-
         return false;
     }
 }

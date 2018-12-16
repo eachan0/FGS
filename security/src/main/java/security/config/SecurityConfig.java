@@ -85,7 +85,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/layui/**","/js/**","/css/**","/img/**",
                 "/webjars/**","/css/fonts/**","/ico/**","/*.html","/favicon.ico",
-                "/swagger-resources/**","/druid/**"
+                "/swagger-resources/**","/druid/**","/v2/api-docs"
         );
     }
 }
