@@ -1,4 +1,4 @@
-package system.DTO;
+package system.VO;
 
 import java.io.Serializable;
 

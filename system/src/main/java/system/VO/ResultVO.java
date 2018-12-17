@@ -1,4 +1,4 @@
-package system.DO;
+package system.VO;
 
 import lombok.Data;
 import lombok.ToString;

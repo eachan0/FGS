@@ -1,6 +1,6 @@
 package system.utils;
 
-import system.DO.ResultVO;
+import system.VO.ResultVO;
 import system.enums.ExcptionEnum;
 
 /**

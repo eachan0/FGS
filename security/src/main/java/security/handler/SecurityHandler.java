@@ -14,7 +14,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import security.filter.TokenFilter;
 import system.DTO.LoginUser;
-import system.DTO.ResponseInfo;
+import system.VO.ResponseInfo;
 import system.model.Token;
 import system.service.TokenService;
 import system.utils.ResponseUtil;

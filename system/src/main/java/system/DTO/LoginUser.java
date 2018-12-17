@@ -32,6 +32,7 @@ public class LoginUser extends SysUser implements UserDetails {
     /** 过期时间戳 */
     private Long expireTime;
 
+    @JsonIgnore
     private String token;
 
     private List<SysMenu> menus;
