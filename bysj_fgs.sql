@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 14/12/2018 15:31:37
+ Date: 18/12/2018 17:38:06
 */
 
 SET NAMES utf8mb4;
@@ -36,10 +36,14 @@ CREATE TABLE `sys_menu`  (
 -- ----------------------------
 -- Records of sys_menu
 -- ----------------------------
-INSERT INTO `sys_menu` VALUES (1, '#', '系统菜单', 0, 'sys', 1, 'menu', '/');
-INSERT INTO `sys_menu` VALUES (2, '#', '用户管理', 1, 'sys:user', 1, 'menu', '/');
-INSERT INTO `sys_menu` VALUES (3, '#', '角色管理', 1, 'sys:role', 2, 'menu', '/');
-INSERT INTO `sys_menu` VALUES (4, '#', '菜单管理', 1, 'sys:menu', 3, 'menu', '/');
+INSERT INTO `sys_menu` VALUES (1, 'layui-icon-list', '系统菜单', 0, 'sys', 1, 'menu', '/');
+INSERT INTO `sys_menu` VALUES (2, 'layui-icon-list', '用户管理', 1, 'sys:user', 1, 'menu', 'admin-web\\user\\user_list.html');
+INSERT INTO `sys_menu` VALUES (3, 'layui-icon-list', '角色管理', 1, 'sys:role', 2, 'menu', 'admin-web\\role\\role_list.html');
+INSERT INTO `sys_menu` VALUES (4, 'layui-icon-list', '菜单管理', 1, 'sys:menu', 3, 'menu', 'admin-web\\menu\\menu_list.html');
+INSERT INTO `sys_menu` VALUES (5, NULL, '菜单查看', 4, 'sys:menu:select', 41, 'btn', '');
+INSERT INTO `sys_menu` VALUES (6, NULL, '菜单添加', 4, 'sys:menu:add', 42, 'btn', '');
+INSERT INTO `sys_menu` VALUES (7, NULL, '菜单修改', 4, 'sys:menu:update', 43, 'btn', NULL);
+INSERT INTO `sys_menu` VALUES (8, NULL, '菜单删除', 4, 'sys:menu:del', 44, 'btn', NULL);
 
 -- ----------------------------
 -- Table structure for sys_role
@@ -76,6 +80,10 @@ INSERT INTO `sys_role_menu` VALUES (1, 1, 1);
 INSERT INTO `sys_role_menu` VALUES (2, 2, 1);
 INSERT INTO `sys_role_menu` VALUES (3, 3, 1);
 INSERT INTO `sys_role_menu` VALUES (4, 4, 1);
+INSERT INTO `sys_role_menu` VALUES (5, 5, 1);
+INSERT INTO `sys_role_menu` VALUES (6, 6, 1);
+INSERT INTO `sys_role_menu` VALUES (7, 7, 1);
+INSERT INTO `sys_role_menu` VALUES (8, 8, 1);
 
 -- ----------------------------
 -- Table structure for sys_user
