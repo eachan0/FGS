@@ -12,7 +12,15 @@ public enum ExcptionEnum {
     /**
      *
      */
-    SYSTEM_ERROR(500,"服务器异常")
+    SYSTEM_ERROR(500,"服务器异常"),
+    /*
+     *
+     */
+    PARAM_ERROR(3,"参数错误"),
+    /*
+     *
+     */
+    DO_ERROR(4,"操作错误")
     ;
     private Integer code;
     private String msg;

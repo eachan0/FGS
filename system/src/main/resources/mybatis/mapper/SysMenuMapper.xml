@@ -128,4 +128,7 @@
   <select id="getMenuListByUserName" resultType="menu" parameterType="string" statementType="CALLABLE">
     {call getMenuListByUserName(#{username,jdbcType=VARCHAR})}
   </select>
+  <select id="getMenuList" resultType="menu">
+    select * from sys_menu;
+  </select>
 </mapper>

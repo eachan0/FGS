@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.ToString;
 import org.apache.ibatis.type.Alias;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @ToString

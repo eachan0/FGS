@@ -18,4 +18,6 @@ public interface SysMenuMapper {
     SysMenu selectByPrimaryKey(Integer id);
 
     List<SysMenu> getMenuListByUserName(String username);
+
+    List<SysMenu> getMenuList();
 }

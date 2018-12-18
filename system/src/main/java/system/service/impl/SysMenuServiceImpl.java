@@ -27,4 +27,34 @@ public class SysMenuServiceImpl implements SysMenuService {
         return menuMapper.getMenuListByUserName(username);
     }
 
+    @Override
+    public List<SysMenu> getMenuList() {
+        return menuMapper.getMenuList();
+    }
+
+    @Override
+    public int deleteByPrimaryKey(Integer id) {
+        return menuMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public int insert(SysMenu menu) {
+        return menuMapper.insert(menu);
+    }
+
+    @Override
+    public int insertSelective(SysMenu menu) {
+        return menuMapper.insertSelective(menu);
+    }
+
+    @Override
+    public int updateByPrimaryKeySelective(SysMenu menu) {
+        return menuMapper.updateByPrimaryKeySelective(menu);
+    }
+
+    @Override
+    public int updateByPrimaryKey(SysMenu menu) {
+        return menuMapper.updateByPrimaryKey(menu);
+    }
+
 }

@@ -10,14 +10,22 @@ import system.enums.ExcptionEnum;
  * @create: 2018-12-03 17:21
  **/
 public class ResultVOUtil {
-    public static ResultVO success(Object data){
+    public static ResultVO<Object> success(Object data){
         ResultVO<Object> resultVO = new ResultVO<>();
         resultVO.setCode(0);
         resultVO.setMsg("success");
         resultVO.setData(data);
         return resultVO;
     }
-    public static ResultVO success(){
+    public static ResultVO success(Object data,Integer count){
+        ResultVO<Object> resultVO = new ResultVO<>();
+        resultVO.setCode(0);
+        resultVO.setMsg("success");
+        resultVO.setData(data);
+        resultVO.setCount(count);
+        return resultVO;
+    }
+    public static ResultVO<Object> success(){
         return success(null);
     }
     public static ResultVO error(){
@@ -34,11 +42,22 @@ public class ResultVOUtil {
         resultVO.setData(null);
         return resultVO;
     }
-    public static ResultVO error(ExcptionEnum excptionEnum){
+    public static ResultVO<Object> error(ExcptionEnum excptionEnum){
         ResultVO<Object> resultVO = new ResultVO<>();
         resultVO.setCode(excptionEnum.getCode());
         resultVO.setMsg(excptionEnum.getMsg());
         resultVO.setData(null);
         return resultVO;
+    }
+    public static ResultVO<Object> error(ExcptionEnum excptionEnum, Object o){
+        ResultVO<Object> resultVO = error(excptionEnum);
+        resultVO.setData(o);
+        return resultVO;
+    }
+    public static ResultVO<Object> sqlResult(Integer result){
+        if (result==null || result<1){
+            return error(ExcptionEnum.DO_ERROR);
+        }
+        return success();
     }
 }

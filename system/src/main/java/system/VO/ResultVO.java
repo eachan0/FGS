@@ -15,4 +15,5 @@ public class ResultVO<T> {
     Integer code;
     String msg;
     T data;
+    Integer count;
 }
