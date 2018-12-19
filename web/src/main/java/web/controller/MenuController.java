@@ -32,7 +32,7 @@ public class MenuController {
     }
 
     @PostMapping("/menu")
-    public ResultVO addMenu(@Valid SysMenu menu, BindingResult result){
+    public ResultVO addMenu(@Valid @RequestBody SysMenu menu, BindingResult result){
         if (result.hasErrors()) {
            return getErrorMsg(result);
         }

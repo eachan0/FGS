@@ -57,4 +57,8 @@ public class SysMenuServiceImpl implements SysMenuService {
         return menuMapper.updateByPrimaryKey(menu);
     }
 
+    public void batchDel(List<Integer> ids){
+        menuMapper.deleteByPrimaryKey()
+    }
+
 }
