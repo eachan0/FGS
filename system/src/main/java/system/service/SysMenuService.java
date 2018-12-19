@@ -1,6 +1,6 @@
 package system.service;
 
-import system.DO.SysMenu;
+import system.entity.SysMenu;
 
 import java.util.List;
 

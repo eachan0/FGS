@@ -7,7 +7,7 @@ spring:
       date-format: yyyy-MM-dd HH:mm:ss
       time-zone: GMT+8
 server:
-  port: 80
+  port: 8090
   servlet:
     context-path: /fgs-api
     session:
@@ -15,7 +15,7 @@ server:
 mybatis:
   config-location: classpath:mybatis/mybatis-config.xml
   mapper-locations: classpath:mybatis/mapper/*.xml
-  type-aliases-package: system.DO
+  type-aliases-package: system.entity
 token:
   expire:
     seconds: 7200

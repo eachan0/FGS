@@ -1,10 +1,11 @@
 package web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
-import system.DO.SysMenu;
+import system.entity.SysMenu;
 import system.VO.ResultVO;
 import system.enums.ExcptionEnum;
 import system.service.SysMenuService;
@@ -26,12 +27,14 @@ public class MenuController {
     private SysMenuService menuService;
 
     @PostMapping("/list")
+    @PreAuthorize("hasAnyAuthority('sys:menu:select')")
     public ResultVO getMenuList(){
         List<SysMenu> list =  menuService.getMenuList();
         return ResultVOUtil.success(list,list.size());
     }
 
     @PostMapping("/menu")
+    @PreAuthorize("hasAnyAuthority('sys:menu:add')")
     public ResultVO addMenu(@Valid @RequestBody SysMenu menu, BindingResult result){
         if (result.hasErrors()) {
            return getErrorMsg(result);
@@ -40,14 +43,18 @@ public class MenuController {
     }
 
     @DeleteMapping("/menu")
-    public ResultVO delMenu(Integer id){
-        if (id==null  || id<0 ){
+    @PreAuthorize("hasAnyAuthority('sys:menu:del')")
+    public ResultVO delMenu(@RequestParam(value = "ids[]",required = false) List<Integer> ids){
+        if (ids==null  || ids.size()==0 ){
             return ResultVOUtil.error(ExcptionEnum.PARAM_ERROR);
         }
-        return ResultVOUtil.sqlResult(menuService.deleteByPrimaryKey(id));
+        ids.forEach(System.out::println);
+//        return ResultVOUtil.sqlResult(menuService.deleteByPrimaryKey(id));
+        return ResultVOUtil.success();
     }
 
     @PutMapping("/menu")
+    @PreAuthorize("hasAnyAuthority('sys:menu:update')")
     public ResultVO putMenu(@Valid @RequestBody SysMenu menu, BindingResult result){
         if (result.hasErrors()) {
             return getErrorMsg(result);

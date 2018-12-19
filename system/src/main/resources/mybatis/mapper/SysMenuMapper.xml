@@ -1,21 +1,93 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="system.mapper.SysMenuMapper">
-  <resultMap id="menuBaseResultMap" type="menu">
+  <resultMap id="BaseResultMap" type="system.entity.SysMenu">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="menu_name" jdbcType="VARCHAR" property="menuName" />
-    <result column="url" jdbcType="VARCHAR" property="url" />
-    <result column="type" jdbcType="VARCHAR" property="type" />
     <result column="ico" jdbcType="VARCHAR" property="ico" />
-    <result column="sort" jdbcType="INTEGER" property="sort" />
-    <result column="permission" jdbcType="VARCHAR" property="permission" />
+    <result column="menu_name" jdbcType="VARCHAR" property="menuName" />
     <result column="parentid" jdbcType="INTEGER" property="parentid" />
+    <result column="permission" jdbcType="VARCHAR" property="permission" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
   </resultMap>
-  <sql id="Base_Column_List">
-    id, menu_name, url, type, ico, sort, permission, parentid
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="menuBaseResultMap">
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, ico, menu_name, parentid, permission, sort, type, url
+  </sql>
+  <select id="selectByExample" parameterType="system.entityExamplke.SysMenuExample" resultMap="BaseResultMap">
     select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_menu
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
     <include refid="Base_Column_List" />
     from sys_menu
     where id = #{id,jdbcType=INTEGER}
@@ -24,111 +96,166 @@
     delete from sys_menu
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="menu">
-    insert into sys_menu (id, menu_name, url,
-      type, ico, sort, permission,
-      parentid)
-    values (#{id,jdbcType=INTEGER}, #{menuName,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR},
-      #{type,jdbcType=VARCHAR}, #{ico,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, #{permission,jdbcType=VARCHAR},
-      #{parentid,jdbcType=INTEGER})
+  <delete id="deleteByExample" parameterType="system.entityExamplke.SysMenuExample">
+    delete from sys_menu
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="system.entity.SysMenu">
+    insert into sys_menu (id, ico, menu_name, 
+      parentid, permission, sort, 
+      type, url)
+    values (#{id,jdbcType=INTEGER}, #{ico,jdbcType=VARCHAR}, #{menuName,jdbcType=VARCHAR}, 
+      #{parentid,jdbcType=INTEGER}, #{permission,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, 
+      #{type,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="menu">
+  <insert id="insertSelective" parameterType="system.entity.SysMenu">
     insert into sys_menu
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
       </if>
-      <if test="menuName != null">
-        menu_name,
-      </if>
-      <if test="url != null">
-        url,
-      </if>
-      <if test="type != null">
-        type,
-      </if>
       <if test="ico != null">
         ico,
       </if>
-      <if test="sort != null">
-        sort,
+      <if test="menuName != null">
+        menu_name,
+      </if>
+      <if test="parentid != null">
+        parentid,
       </if>
       <if test="permission != null">
         permission,
       </if>
-      <if test="parentid != null">
-        parentid,
+      <if test="sort != null">
+        sort,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="url != null">
+        url,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="menuName != null">
-        #{menuName,jdbcType=VARCHAR},
-      </if>
-      <if test="url != null">
-        #{url,jdbcType=VARCHAR},
-      </if>
-      <if test="type != null">
-        #{type,jdbcType=VARCHAR},
-      </if>
       <if test="ico != null">
         #{ico,jdbcType=VARCHAR},
       </if>
-      <if test="sort != null">
-        #{sort,jdbcType=INTEGER},
-      </if>
-      <if test="permission != null">
-        #{permission,jdbcType=VARCHAR},
+      <if test="menuName != null">
+        #{menuName,jdbcType=VARCHAR},
       </if>
       <if test="parentid != null">
         #{parentid,jdbcType=INTEGER},
       </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="menu">
-    update sys_menu
-    <set>
-      <if test="menuName != null">
-        menu_name = #{menuName,jdbcType=VARCHAR},
+      <if test="permission != null">
+        #{permission,jdbcType=VARCHAR},
       </if>
-      <if test="url != null">
-        url = #{url,jdbcType=VARCHAR},
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
       </if>
       <if test="type != null">
-        type = #{type,jdbcType=VARCHAR},
+        #{type,jdbcType=VARCHAR},
       </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="system.entityExamplke.SysMenuExample" resultType="java.lang.Long">
+    select count(*) from sys_menu
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update sys_menu
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.ico != null">
+        ico = #{record.ico,jdbcType=VARCHAR},
+      </if>
+      <if test="record.menuName != null">
+        menu_name = #{record.menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parentid != null">
+        parentid = #{record.parentid,jdbcType=INTEGER},
+      </if>
+      <if test="record.permission != null">
+        permission = #{record.permission,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sort != null">
+        sort = #{record.sort,jdbcType=INTEGER},
+      </if>
+      <if test="record.type != null">
+        type = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.url != null">
+        url = #{record.url,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update sys_menu
+    set id = #{record.id,jdbcType=INTEGER},
+      ico = #{record.ico,jdbcType=VARCHAR},
+      menu_name = #{record.menuName,jdbcType=VARCHAR},
+      parentid = #{record.parentid,jdbcType=INTEGER},
+      permission = #{record.permission,jdbcType=VARCHAR},
+      sort = #{record.sort,jdbcType=INTEGER},
+      type = #{record.type,jdbcType=VARCHAR},
+      url = #{record.url,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="system.entity.SysMenu">
+    update sys_menu
+    <set>
       <if test="ico != null">
         ico = #{ico,jdbcType=VARCHAR},
       </if>
-      <if test="sort != null">
-        sort = #{sort,jdbcType=INTEGER},
-      </if>
-      <if test="permission != null">
-        permission = #{permission,jdbcType=VARCHAR},
+      <if test="menuName != null">
+        menu_name = #{menuName,jdbcType=VARCHAR},
       </if>
       <if test="parentid != null">
         parentid = #{parentid,jdbcType=INTEGER},
       </if>
+      <if test="permission != null">
+        permission = #{permission,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        url = #{url,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="menu">
+  <update id="updateByPrimaryKey" parameterType="system.entity.SysMenu">
     update sys_menu
-    set menu_name = #{menuName,jdbcType=VARCHAR},
-      url = #{url,jdbcType=VARCHAR},
-      type = #{type,jdbcType=VARCHAR},
-      ico = #{ico,jdbcType=VARCHAR},
-      sort = #{sort,jdbcType=INTEGER},
+    set ico = #{ico,jdbcType=VARCHAR},
+      menu_name = #{menuName,jdbcType=VARCHAR},
+      parentid = #{parentid,jdbcType=INTEGER},
       permission = #{permission,jdbcType=VARCHAR},
-      parentid = #{parentid,jdbcType=INTEGER}
+      sort = #{sort,jdbcType=INTEGER},
+      type = #{type,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="getMenuListByUserName" resultType="menu" parameterType="string" statementType="CALLABLE">
     {call getMenuListByUserName(#{username,jdbcType=VARCHAR})}
-  </select>
-  <select id="getMenuList" resultType="menu">
-    select * from sys_menu;
   </select>
 </mapper>

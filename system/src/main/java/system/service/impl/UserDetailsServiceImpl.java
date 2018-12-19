@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import system.DO.SysUser;
+import system.entity.SysUser;
 import system.DTO.LoginUser;
 import system.service.SysMenuService;
 import system.service.SysUserService;

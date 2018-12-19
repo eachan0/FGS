@@ -8,8 +8,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.StringUtils;
-import system.DO.SysMenu;
-import system.DO.SysUser;
+import system.entity.SysMenu;
+import system.entity.SysUser;
 
 import java.util.Collection;
 import java.util.List;

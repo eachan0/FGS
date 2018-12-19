@@ -67,6 +67,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint);
         http.logout().logoutUrl("/logout").logoutSuccessHandler(logoutSuccessHandler);
 
+        http.authorizeRequests().antMatchers("/swagger-resources/**","/druid/**","/v2/api-docs").hasAnyAuthority("sys");
+
         http.authorizeRequests().anyRequest().authenticated();
 
         // 解决不允许显示在iframe的问题
@@ -84,8 +86,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/layui/**","/js/**","/css/**","/img/**",
-                "/webjars/**","/css/fonts/**","/ico/**","/*.html","/favicon.ico",
-                "/swagger-resources/**","/druid/**","/v2/api-docs"
+                "/webjars/**","/css/fonts/**","/ico/**","/favicon.ico"
         );
     }
 }

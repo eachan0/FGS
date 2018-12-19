@@ -3,7 +3,7 @@ package system.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import system.DO.SysMenu;
+import system.entity.SysMenu;
 import system.mapper.SysMenuMapper;
 import system.service.SysMenuService;
 
@@ -29,7 +29,7 @@ public class SysMenuServiceImpl implements SysMenuService {
 
     @Override
     public List<SysMenu> getMenuList() {
-        return menuMapper.getMenuList();
+        return menuMapper.selectByExample(null);
     }
 
     @Override
@@ -55,10 +55,6 @@ public class SysMenuServiceImpl implements SysMenuService {
     @Override
     public int updateByPrimaryKey(SysMenu menu) {
         return menuMapper.updateByPrimaryKey(menu);
-    }
-
-    public void batchDel(List<Integer> ids){
-        menuMapper.deleteByPrimaryKey()
     }
 
 }

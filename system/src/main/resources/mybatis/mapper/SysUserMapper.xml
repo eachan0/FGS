@@ -1,22 +1,94 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="system.mapper.SysUserMapper">
-  <resultMap id="userBaseResultMap" type="user">
+  <resultMap id="BaseResultMap" type="system.entity.SysUser">
     <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="crate_time" jdbcType="TIMESTAMP" property="crateTime" />
+    <result column="is_enable" jdbcType="BIT" property="isEnable" />
+    <result column="is_expired" jdbcType="BIT" property="isExpired" />
+    <result column="is_lock" jdbcType="BIT" property="isLock" />
     <result column="nickname" jdbcType="VARCHAR" property="nickname" />
-    <result column="username" jdbcType="VARCHAR" property="username" />
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="sex" jdbcType="VARCHAR" property="sex" />
-    <result column="isExpired" jdbcType="VARCHAR" property="isExpired" />
-    <result column="isLock" jdbcType="VARCHAR" property="isLock" />
-    <result column="isEnable" jdbcType="VARCHAR" property="isEnable" />
-    <result column="cratetime" jdbcType="TIMESTAMP" property="crateTime" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
   </resultMap>
-  <sql id="Base_Column_List">
-    id, nickname, username, password, sex, isExpired, isLock, isEnable, cratetime
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="userBaseResultMap">
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, crate_time, is_enable, is_expired, is_lock, nickname, password, sex, username
+  </sql>
+  <select id="selectByExample" parameterType="system.entityExamplke.SysUserExample" resultMap="BaseResultMap">
     select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
     <include refid="Base_Column_List" />
     from sys_user
     where id = #{id,jdbcType=INTEGER}
@@ -25,27 +97,42 @@
     delete from sys_user
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="user">
-    insert into sys_user (id, nickname, username,
-      password, sex, isExpired,
-      isLock, isEnable, cratetime
+  <delete id="deleteByExample" parameterType="system.entityExamplke.SysUserExample">
+    delete from sys_user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="system.entity.SysUser">
+    insert into sys_user (id, crate_time, is_enable, 
+      is_expired, is_lock, nickname, 
+      password, sex, username
       )
-    values (#{id,jdbcType=INTEGER}, #{nickname,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR},
-      #{password,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{isexpired,jdbcType=VARCHAR},
-      #{islock,jdbcType=VARCHAR}, #{isenable,jdbcType=VARCHAR}, #{cratetime,jdbcType=TIMESTAMP}
+    values (#{id,jdbcType=INTEGER}, #{crateTime,jdbcType=TIMESTAMP}, #{isEnable,jdbcType=BIT}, 
+      #{isExpired,jdbcType=BIT}, #{isLock,jdbcType=BIT}, #{nickname,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="user">
+  <insert id="insertSelective" parameterType="system.entity.SysUser">
     insert into sys_user
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
       </if>
+      <if test="crateTime != null">
+        crate_time,
+      </if>
+      <if test="isEnable != null">
+        is_enable,
+      </if>
+      <if test="isExpired != null">
+        is_expired,
+      </if>
+      <if test="isLock != null">
+        is_lock,
+      </if>
       <if test="nickname != null">
         nickname,
-      </if>
-      <if test="username != null">
-        username,
       </if>
       <if test="password != null">
         password,
@@ -53,28 +140,28 @@
       <if test="sex != null">
         sex,
       </if>
-      <if test="isexpired != null">
-        isExpired,
-      </if>
-      <if test="islock != null">
-        isLock,
-      </if>
-      <if test="isenable != null">
-        isEnable,
-      </if>
-      <if test="cratetime != null">
-        cratetime,
+      <if test="username != null">
+        username,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
+      <if test="crateTime != null">
+        #{crateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isEnable != null">
+        #{isEnable,jdbcType=BIT},
+      </if>
+      <if test="isExpired != null">
+        #{isExpired,jdbcType=BIT},
+      </if>
+      <if test="isLock != null">
+        #{isLock,jdbcType=BIT},
+      </if>
       <if test="nickname != null">
         #{nickname,jdbcType=VARCHAR},
-      </if>
-      <if test="username != null">
-        #{username,jdbcType=VARCHAR},
       </if>
       <if test="password != null">
         #{password,jdbcType=VARCHAR},
@@ -82,28 +169,84 @@
       <if test="sex != null">
         #{sex,jdbcType=VARCHAR},
       </if>
-      <if test="isexpired != null">
-        #{isexpired,jdbcType=VARCHAR},
-      </if>
-      <if test="islock != null">
-        #{islock,jdbcType=VARCHAR},
-      </if>
-      <if test="isenable != null">
-        #{isenable,jdbcType=VARCHAR},
-      </if>
-      <if test="cratetime != null">
-        #{cratetime,jdbcType=TIMESTAMP},
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="user">
+  <select id="countByExample" parameterType="system.entityExamplke.SysUserExample" resultType="java.lang.Long">
+    select count(*) from sys_user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
     update sys_user
     <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.crateTime != null">
+        crate_time = #{record.crateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isEnable != null">
+        is_enable = #{record.isEnable,jdbcType=BIT},
+      </if>
+      <if test="record.isExpired != null">
+        is_expired = #{record.isExpired,jdbcType=BIT},
+      </if>
+      <if test="record.isLock != null">
+        is_lock = #{record.isLock,jdbcType=BIT},
+      </if>
+      <if test="record.nickname != null">
+        nickname = #{record.nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null">
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sex != null">
+        sex = #{record.sex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.username != null">
+        username = #{record.username,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update sys_user
+    set id = #{record.id,jdbcType=INTEGER},
+      crate_time = #{record.crateTime,jdbcType=TIMESTAMP},
+      is_enable = #{record.isEnable,jdbcType=BIT},
+      is_expired = #{record.isExpired,jdbcType=BIT},
+      is_lock = #{record.isLock,jdbcType=BIT},
+      nickname = #{record.nickname,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
+      sex = #{record.sex,jdbcType=VARCHAR},
+      username = #{record.username,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="system.entity.SysUser">
+    update sys_user
+    <set>
+      <if test="crateTime != null">
+        crate_time = #{crateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isEnable != null">
+        is_enable = #{isEnable,jdbcType=BIT},
+      </if>
+      <if test="isExpired != null">
+        is_expired = #{isExpired,jdbcType=BIT},
+      </if>
+      <if test="isLock != null">
+        is_lock = #{isLock,jdbcType=BIT},
+      </if>
       <if test="nickname != null">
         nickname = #{nickname,jdbcType=VARCHAR},
-      </if>
-      <if test="username != null">
-        username = #{username,jdbcType=VARCHAR},
       </if>
       <if test="password != null">
         password = #{password,jdbcType=VARCHAR},
@@ -111,35 +254,22 @@
       <if test="sex != null">
         sex = #{sex,jdbcType=VARCHAR},
       </if>
-      <if test="isexpired != null">
-        isExpired = #{isexpired,jdbcType=VARCHAR},
-      </if>
-      <if test="islock != null">
-        isLock = #{islock,jdbcType=VARCHAR},
-      </if>
-      <if test="isenable != null">
-        isEnable = #{isenable,jdbcType=VARCHAR},
-      </if>
-      <if test="cratetime != null">
-        cratetime = #{cratetime,jdbcType=TIMESTAMP},
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="user">
+  <update id="updateByPrimaryKey" parameterType="system.entity.SysUser">
     update sys_user
-    set nickname = #{nickname,jdbcType=VARCHAR},
-      username = #{username,jdbcType=VARCHAR},
+    set crate_time = #{crateTime,jdbcType=TIMESTAMP},
+      is_enable = #{isEnable,jdbcType=BIT},
+      is_expired = #{isExpired,jdbcType=BIT},
+      is_lock = #{isLock,jdbcType=BIT},
+      nickname = #{nickname,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
       sex = #{sex,jdbcType=VARCHAR},
-      isExpired = #{isexpired,jdbcType=VARCHAR},
-      isLock = #{islock,jdbcType=VARCHAR},
-      isEnable = #{isenable,jdbcType=VARCHAR},
-      cratetime = #{cratetime,jdbcType=TIMESTAMP}
+      username = #{username,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
-
-  <select id="getUserByUserName" parameterType="string" resultType="user">
-    select * from sys_user where username = #{username}
-  </select>
 </mapper>

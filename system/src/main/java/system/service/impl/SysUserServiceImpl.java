@@ -3,9 +3,12 @@ package system.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import system.DO.SysUser;
+import system.entity.SysUser;
+import system.entityExamplke.SysUserExample;
 import system.mapper.SysUserMapper;
 import system.service.SysUserService;
+
+import java.util.List;
 
 /**
  * @program: FGS
@@ -22,6 +25,9 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Override
     public SysUser getUserByUserName(String username) {
-        return userMapper.getUserByUserName(username);
+        SysUserExample userExample = new SysUserExample();
+        userExample.createCriteria().andUsernameEqualTo(username);
+        List list = userMapper.selectByExample(userExample);
+        return (SysUser) list.get(0);
     }
 }

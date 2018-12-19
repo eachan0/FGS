@@ -1,6 +1,6 @@
 package system.service;
 
-import system.DO.SysUser;
+import system.entity.SysUser;
 
 /**
  * @program: FGS
