@@ -30,9 +30,6 @@ public class WebApplicationTests {
     @Test
     public void testMenu() {
        List list = menuService.getMenuListByUserName("admin");
-       list.forEach(menu->{
-           System.out.println(menu.toString());
-       });
     }
 
 }

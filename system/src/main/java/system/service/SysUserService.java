@@ -17,4 +17,5 @@ public interface SysUserService {
     int deleteByExample(SysUserExample example);
     int updateByPrimaryKeySelective(SysUser record);
     List<SysUser> selectByExample(SysUserExample example);
+    int resetPwd(List<SysUser> list);
 }

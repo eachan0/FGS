@@ -56,9 +56,10 @@ public class UserController {
         if (ids==null || ids.size()<=0){
             return ResultVOUtil.error(ExcptionEnum.PARAM_ERROR);
         }
-        SysUserExample userExample = new SysUserExample();
-        userExample.createCriteria().andIdIn(ids);
-        return ResultVOUtil.sqlResult(userService.deleteByExample(userExample));
+//        SysUserExample userExample = new SysUserExample();
+//        userExample.createCriteria().andIdIn(ids);
+//        return ResultVOUtil.sqlResult(userService.deleteByExample(userExample));
+        return ResultVOUtil.success(ids);
     }
 
     @ApiOperation(value = "修改用户")
@@ -70,5 +71,16 @@ public class UserController {
             return ResultVOUtil.error(ExcptionEnum.DATA_NULL);
         }
         return ResultVOUtil.sqlResult(userService.updateByPrimaryKeySelective(user));
+    }
+
+    @ApiOperation(value = "修改用户密码")
+    @ApiImplicitParam(name = "user",value = "用户",required = true,paramType = "JsonString")
+    @PostMapping("/reset")
+    @PreAuthorize("hasAnyAuthority('sys:user:update')")
+    public ResultVO reset(@RequestBody(required = false) List<SysUser> list){
+        if (list == null || list.size()<=0){
+            return ResultVOUtil.error(ExcptionEnum.DATA_NULL);
+        }
+        return ResultVOUtil.success(userService.resetPwd(list));
     }
 }

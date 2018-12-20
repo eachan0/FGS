@@ -20,7 +20,8 @@ public enum ExcptionEnum {
     /*
      *
      */
-    DO_ERROR(4,"操作错误")
+    DO_ERROR(4,"操作错误"),
+    Access_Denied(403,"权限不足")
     ;
     private Integer code;
     private String msg;

@@ -7,6 +7,7 @@ import system.entity.SysUser;
 import system.entityExamplke.SysUserExample;
 import system.mapper.SysUserMapper;
 import system.service.SysUserService;
+import system.utils.BCryptUtils;
 
 import java.util.List;
 
@@ -49,5 +50,13 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public List<SysUser> selectByExample(SysUserExample example) {
         return userMapper.selectByExample(example);
+    }
+
+    @Override
+    public int resetPwd(List<SysUser> list) {
+        list.forEach(i->{
+            i.setPassword(BCryptUtils.encoder(i.getUsername()+"fgs"));
+        });
+        return userMapper.updatePwdByIds(list);
     }
 }

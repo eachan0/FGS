@@ -1,6 +1,7 @@
 package system.handle;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import system.enums.ExcptionEnum;
@@ -24,7 +25,10 @@ public class ExceptionHandle {
         if (e instanceof DataException) {
             DataException exception = (DataException) e;
             return ResultVOUtil.error(exception.getCode(), exception.getMessage());
-        } else {
+        } else if(e instanceof AccessDeniedException){
+            return ResultVOUtil.error(ExcptionEnum.Access_Denied);
+        }
+        else{
             log.info("[系统异常]{}", e);
             return ResultVOUtil.error(ExcptionEnum.SYSTEM_ERROR);
         }

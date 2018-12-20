@@ -272,4 +272,14 @@
       username = #{username,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <update id="updatePwdByIds" parameterType="java.util.List">
+    UPDATE sys_user SET password = CASE id
+    <foreach collection="list" open=" " close=" " separator=" " item="item">
+      WHEN #{item.id,jdbcType=INTEGER} THEN #{item.password,jdbcType=VARCHAR}
+    </foreach>
+    END WHERE id IN
+    <foreach collection="list" open="(" close=")" separator="," item="item">
+      #{item.id,jdbcType=INTEGER}
+    </foreach>
+  </update>
 </mapper>

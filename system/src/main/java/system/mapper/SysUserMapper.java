@@ -78,4 +78,6 @@ public interface SysUserMapper {
      * @mbg.generated
      */
     int updateByPrimaryKey(SysUser record);
+
+    int updatePwdByIds(List<SysUser> list);
 }

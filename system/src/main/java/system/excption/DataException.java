@@ -1,6 +1,7 @@
 package system.excption;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import system.enums.ExcptionEnum;
 
 /**
@@ -9,6 +10,7 @@ import system.enums.ExcptionEnum;
  * @author: zhuyc
  * @create: 2018-12-04 09:30
  **/
+@EqualsAndHashCode(callSuper = true)
 @Data
 public class DataException extends RuntimeException {
     private static final long serialVersionUID = 5987808863530715675L;

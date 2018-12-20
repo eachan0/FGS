@@ -56,9 +56,10 @@ public class MenuController {
         if ((ids == null) || (ids.size() <= 0)){
             return ResultVOUtil.error(ExcptionEnum.PARAM_ERROR);
         }
-        SysMenuExample menuExample = new SysMenuExample();
-        menuExample.createCriteria().andIdIn(ids);
-        return ResultVOUtil.sqlResult(menuService.deleteByExample(menuExample));
+//        SysMenuExample menuExample = new SysMenuExample();
+//        menuExample.createCriteria().andIdIn(ids);
+//        return ResultVOUtil.sqlResult(menuService.deleteByExample(menuExample));
+        return ResultVOUtil.success(ids);
     }
 
     @ApiOperation(value = "修改菜单")

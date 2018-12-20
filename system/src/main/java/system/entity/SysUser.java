@@ -33,11 +33,13 @@ public class SysUser implements Serializable {
     /**
      * 是否开启
      */
+    @JsonIgnore
     private Boolean isEnable;
 
     /**
      * 是否过期
      */
+    @JsonIgnore
     private Boolean isExpired;
 
     /**

@@ -47,9 +47,11 @@ public class RoleController {
         if ((ids == null) || (ids.size() <= 0)){
             return ResultVOUtil.error(ExcptionEnum.PARAM_ERROR);
         }
-        SysRoleExample roleExample = new SysRoleExample();
-        roleExample.createCriteria().andIdIn(ids);
-        return ResultVOUtil.sqlResult(roleService.deleteByExample(roleExample));
+//        SysRoleExample roleExample = new SysRoleExample();
+//        roleExample.createCriteria().andIdIn(ids);
+//        return ResultVOUtil.sqlResult(roleService.deleteByExample(roleExample));
+        ids.forEach(System.out::println);
+        return ResultVOUtil.success(ids);
     }
 
     @ApiOperation(value = "修改角色")
