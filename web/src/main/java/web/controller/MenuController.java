@@ -1,5 +1,9 @@
 package web.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
@@ -26,6 +30,7 @@ public class MenuController {
     @Autowired
     private SysMenuService menuService;
 
+    @ApiOperation(value = "获取菜单列表",notes = "admin")
     @PostMapping("/list")
     @PreAuthorize("hasAnyAuthority('sys:menu:select')")
     public ResultVO getMenuList(){
@@ -33,6 +38,8 @@ public class MenuController {
         return ResultVOUtil.success(list,list.size());
     }
 
+    @ApiOperation(value = "增加菜单",notes = "admin")
+    @ApiImplicitParam(name = "menu",value = "菜单",required = true,dataType = "JsonString",paramType = "RequestBody")
     @PostMapping("/menu")
     @PreAuthorize("hasAnyAuthority('sys:menu:add')")
     public ResultVO addMenu(@Valid @RequestBody SysMenu menu, BindingResult result){
@@ -42,17 +49,19 @@ public class MenuController {
         return ResultVOUtil.sqlResult(menuService.insertSelective(menu));
     }
 
+    @ApiOperation(value = "删除菜单",notes = "admin")
+    @ApiImplicitParam(name = "ids",value = "id数组",required = false,dataType = "JsonString",paramType = "RequestBody")
     @DeleteMapping("/menu")
     @PreAuthorize("hasAnyAuthority('sys:menu:del')")
-    public ResultVO delMenu(@RequestParam(value = "ids[]",required = false) List<Integer> ids){
+    public ResultVO delMenu(@RequestBody(required = false) List<Integer> ids){
         if (ids==null  || ids.size()==0 ){
             return ResultVOUtil.error(ExcptionEnum.PARAM_ERROR);
         }
-        ids.forEach(System.out::println);
-//        return ResultVOUtil.sqlResult(menuService.deleteByPrimaryKey(id));
-        return ResultVOUtil.success();
+        return ResultVOUtil.sqlResult(menuService.deleteByExample(ids));
     }
 
+    @ApiOperation(value = "修改菜单",notes = "admin")
+    @ApiImplicitParam(name = "menu",value = "菜单",required = true,dataType = "JsonString",paramType = "RequestBody")
     @PutMapping("/menu")
     @PreAuthorize("hasAnyAuthority('sys:menu:update')")
     public ResultVO putMenu(@Valid @RequestBody SysMenu menu, BindingResult result){

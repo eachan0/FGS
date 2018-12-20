@@ -1,6 +1,7 @@
 package system.service;
 
 import system.entity.SysMenu;
+import system.entityExamplke.SysMenuExample;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ public interface SysMenuService {
     List<SysMenu> getMenuListByUserName(String username);
     List<SysMenu> getMenuList();
 
-    int deleteByPrimaryKey(Integer id);
+    int deleteByExample(List<Integer> list);
     int insert(SysMenu menu);
     int insertSelective(SysMenu menu);
     int updateByPrimaryKeySelective(SysMenu menu);

@@ -1,5 +1,7 @@
 package web.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +20,7 @@ import java.util.UUID;
  */
 @RestController
 public class InitUserInfoController {
+    @ApiOperation(value = "获取用户信息",notes = "根据token来获取用户信息")
     @GetMapping("/get_user_info")
     public ResultVO getUserInfo(@AuthenticationPrincipal LoginUser user){
         return ResultVOUtil.success(user);

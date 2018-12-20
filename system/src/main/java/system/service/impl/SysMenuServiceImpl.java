@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import system.entity.SysMenu;
+import system.entityExamplke.SysMenuExample;
+import system.entityExamplke.SysUserExample;
 import system.mapper.SysMenuMapper;
 import system.service.SysMenuService;
 
@@ -33,8 +35,10 @@ public class SysMenuServiceImpl implements SysMenuService {
     }
 
     @Override
-    public int deleteByPrimaryKey(Integer id) {
-        return menuMapper.deleteByPrimaryKey(id);
+    public int deleteByExample(List<Integer> list) {
+        SysMenuExample menuExample = new SysMenuExample();
+        menuExample.createCriteria().andIdIn(list);
+        return menuMapper.deleteByExample(menuExample);
     }
 
     @Override

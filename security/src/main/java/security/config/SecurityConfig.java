@@ -67,7 +67,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint);
         http.logout().logoutUrl("/logout").logoutSuccessHandler(logoutSuccessHandler);
 
-        http.authorizeRequests().antMatchers("/swagger-resources/**","/druid/**","/v2/api-docs").hasAnyAuthority("sys");
+//        http.authorizeRequests().antMatchers("/swagger-resources/**","/druid/**","/v2/api-docs").hasAnyAuthority("sys");
 
         http.authorizeRequests().anyRequest().authenticated();
 
@@ -86,7 +86,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/layui/**","/js/**","/css/**","/img/**",
-                "/webjars/**","/css/fonts/**","/ico/**","/favicon.ico"
+                "/webjars/**","/css/fonts/**","/ico/**","/favicon.ico",
+                "/swagger-resources/**","/druid/**","/v2/api-docs","/swagger-ui.html"
         );
     }
 }

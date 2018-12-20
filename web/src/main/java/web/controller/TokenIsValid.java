@@ -1,5 +1,6 @@
 package web.controller;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,7 +15,7 @@ import system.utils.ResultVOUtil;
  **/
 @RestController
 public class TokenIsValid {
-    @ApiOperation(value = "token有效验证接口",notes = "...")
+    @ApiOperation(value = "token有效验证接口",notes = "验证请求头中的token是否由本服务器发布!")
     @GetMapping("/tokenIsValid")
     public ResultVO tokenIsValid(){
         return ResultVOUtil.success();
