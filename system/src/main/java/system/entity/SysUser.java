@@ -6,9 +6,11 @@
 */
 package system.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.ToString;
 import org.apache.ibatis.type.Alias;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 /**
@@ -51,6 +53,8 @@ public class SysUser implements Serializable {
     /**
      * 密码
      */
+    @JsonIgnore
+    @NotNull(message = "密码不能为空!")
     private String password;
 
     /**
@@ -61,6 +65,7 @@ public class SysUser implements Serializable {
     /**
      * 用户名
      */
+    @NotNull(message = "用户名不能为空!")
     private String username;
 
     /**

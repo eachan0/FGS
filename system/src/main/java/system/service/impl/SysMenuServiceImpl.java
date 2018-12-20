@@ -30,20 +30,13 @@ public class SysMenuServiceImpl implements SysMenuService {
     }
 
     @Override
-    public List<SysMenu> getMenuList() {
-        return menuMapper.selectByExample(null);
+    public List<SysMenu> selectByExample(SysMenuExample example) {
+        return menuMapper.selectByExample(example);
     }
 
     @Override
-    public int deleteByExample(List<Integer> list) {
-        SysMenuExample menuExample = new SysMenuExample();
-        menuExample.createCriteria().andIdIn(list);
-        return menuMapper.deleteByExample(menuExample);
-    }
-
-    @Override
-    public int insert(SysMenu menu) {
-        return menuMapper.insert(menu);
+    public int deleteByExample(SysMenuExample example) {
+        return menuMapper.deleteByExample(example);
     }
 
     @Override
@@ -54,11 +47,6 @@ public class SysMenuServiceImpl implements SysMenuService {
     @Override
     public int updateByPrimaryKeySelective(SysMenu menu) {
         return menuMapper.updateByPrimaryKeySelective(menu);
-    }
-
-    @Override
-    public int updateByPrimaryKey(SysMenu menu) {
-        return menuMapper.updateByPrimaryKey(menu);
     }
 
 }

@@ -1,6 +1,9 @@
 package system.service;
 
 import system.entity.SysUser;
+import system.entityExamplke.SysUserExample;
+
+import java.util.List;
 
 /**
  * @program: FGS
@@ -10,4 +13,8 @@ import system.entity.SysUser;
  **/
 public interface SysUserService {
     SysUser getUserByUserName(String username);
+    int insertSelective(SysUser record);
+    int deleteByExample(SysUserExample example);
+    int updateByPrimaryKeySelective(SysUser record);
+    List<SysUser> selectByExample(SysUserExample example);
 }

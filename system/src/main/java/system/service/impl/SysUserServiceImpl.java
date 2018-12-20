@@ -30,4 +30,24 @@ public class SysUserServiceImpl implements SysUserService {
         List list = userMapper.selectByExample(userExample);
         return (SysUser) list.get(0);
     }
+
+    @Override
+    public int insertSelective(SysUser record) {
+        return userMapper.insertSelective(record);
+    }
+
+    @Override
+    public int deleteByExample(SysUserExample example) {
+        return userMapper.deleteByExample(example);
+    }
+
+    @Override
+    public int updateByPrimaryKeySelective(SysUser record) {
+        return userMapper.updateByPrimaryKeySelective(record);
+    }
+
+    @Override
+    public List<SysUser> selectByExample(SysUserExample example) {
+        return userMapper.selectByExample(example);
+    }
 }

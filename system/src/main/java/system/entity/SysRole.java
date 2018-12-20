@@ -9,6 +9,7 @@ package system.entity;
 import lombok.ToString;
 import org.apache.ibatis.type.Alias;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -31,6 +32,7 @@ public class SysRole implements Serializable {
     /**
      * 名称
      */
+    @NotNull(message = "名称不能为空")
     private String roleName;
 
     /**

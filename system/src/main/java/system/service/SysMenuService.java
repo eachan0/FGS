@@ -13,11 +13,10 @@ import java.util.List;
  **/
 public interface SysMenuService {
     List<SysMenu> getMenuListByUserName(String username);
-    List<SysMenu> getMenuList();
 
-    int deleteByExample(List<Integer> list);
-    int insert(SysMenu menu);
     int insertSelective(SysMenu menu);
+    int deleteByExample(SysMenuExample example);
     int updateByPrimaryKeySelective(SysMenu menu);
-    int updateByPrimaryKey(SysMenu menu);
+    List<SysMenu> selectByExample(SysMenuExample example);
+
 }
