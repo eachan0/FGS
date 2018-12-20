@@ -7,6 +7,8 @@
 package system.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.apache.ibatis.type.Alias;
 
@@ -18,6 +20,8 @@ import java.util.Date;
  */
 @ToString
 @Alias("user")
+@NoArgsConstructor
+@AllArgsConstructor
 public class SysUser implements Serializable {
     private static final long serialVersionUID = 3192511910759572592L;
     /**

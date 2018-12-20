@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import system.DTO.FormUser;
 import system.VO.ResultVO;
 import system.entity.SysUser;
 import system.entityExamplke.SysUserExample;
@@ -15,6 +16,7 @@ import system.utils.ResultVOUtil;
 import web.utils.BindingResultMsg;
 
 import javax.validation.Valid;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -41,12 +43,15 @@ public class UserController {
     @ApiImplicitParam(name = "user",value = "用户",required = true,paramType = "JsonString")
     @PostMapping("/user")
     @PreAuthorize("hasAnyAuthority('sys:user:add')")
-    public ResultVO addUser(@Valid @RequestBody SysUser user, BindingResult result){
+    public ResultVO addUser(@Valid @RequestBody FormUser user,BindingResult result){
         if (result.hasErrors()) {
             return BindingResultMsg.getErrorMsg(result);
         }
-        return ResultVOUtil.sqlResult(userService.insertSelective(user));
+//        return ResultVOUtil.sqlResult(userService.insertSelective(user));
+        System.out.println(user);
+        return ResultVOUtil.success();
     }
+
 
     @ApiOperation(value = "删除用户")
     @ApiImplicitParam(name = "ids",value = "用户id数组",required = true,paramType = "JsonString")
