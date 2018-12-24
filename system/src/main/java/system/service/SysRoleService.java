@@ -1,5 +1,7 @@
 package system.service;
 
+import system.DTO.Pagination;
+import system.VO.ResultVO;
 import system.entity.SysRole;
 import system.entityExamplke.SysRoleExample;
 
@@ -15,6 +17,6 @@ public interface SysRoleService {
     int insertSelective(SysRole record);
     int deleteByExample(SysRoleExample example);
     int updateByPrimaryKeySelective(SysRole record);
-    List<SysRole> selectByExample(SysRoleExample example);
+    ResultVO selectByExample(SysRoleExample example, Pagination pagination);
     List<SysRole> selectByUsreId(Integer id);
 }

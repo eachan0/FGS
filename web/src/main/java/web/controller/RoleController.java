@@ -2,10 +2,12 @@ package web.controller;
 
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import system.DTO.Pagination;
 import system.VO.ResultVO;
 import system.entity.SysRole;
 import system.entityExamplke.SysRoleExample;
@@ -82,9 +84,13 @@ public class RoleController {
     @ApiOperation(value = "查询角色列表")
     @GetMapping("/roles")
     @PreAuthorize("hasAnyAuthority('sys:role:select')")
-    public ResultVO getRoleList(){
-        List<SysRole> sysRoles = roleService.selectByExample(null);
-        return ResultVOUtil.success(sysRoles,sysRoles.size());
+    public ResultVO getRoleList(String name, Pagination pagination){
+        SysRoleExample roleExample = null;
+        if (StringUtils.isNotBlank(name)){
+            roleExample = new SysRoleExample();
+            roleExample.createCriteria().andRoleNameLike("%"+name+"%");
+        }
+        return roleService.selectByExample(roleExample,pagination);
     }
 
     @ApiOperation(value = "查询角色列表")

@@ -18,6 +18,7 @@ import system.service.SysUserRoleService;
 import system.service.SysUserService;
 import system.utils.BCryptUtils;
 import system.utils.CurrentTime;
+import system.utils.PageUtils;
 import system.utils.ResultVOUtil;
 
 import java.util.ArrayList;
@@ -52,12 +53,12 @@ public class SysUserServiceImpl implements SysUserService {
         BeanUtils.copyProperties(record, user);
         user.setCrateTime(CurrentTime.getCurrentTime(null));
         BCryptUtils.encoder(user);
-        if( userMapper.insertSelective(user)>0){
+        if (userMapper.insertSelective(user) > 0) {
             Integer id = user.getId();
             List<Integer> roles = record.getRoles();
-            if (roles!=null && roles.size()>0){
+            if (roles != null && roles.size() > 0) {
                 List<SysUserRole> list = new ArrayList<>();
-                roles.forEach(item->{
+                roles.forEach(item -> {
                     SysUserRole sysUserRole = new SysUserRole();
                     sysUserRole.setUserId(id);
                     sysUserRole.setRoleId(item);
@@ -82,10 +83,15 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Override
     public ResultVO selectByExample(SysUserExample example, Pagination pagination) {
-        PageHelper.startPage(pagination.getPage(),pagination.getPageSize());
-        List<SysUser> list = userMapper.selectByExample(example);
-        PageInfo<SysUser> pageInfo = new PageInfo<>(list,pagination.getPageSize());
-        return ResultVOUtil.success(pageInfo.getList(), (int) pageInfo.getTotal());
+        if (PageUtils.isValid(pagination)) {
+            PageHelper.startPage(pagination.getPage(), pagination.getPageSize());
+            List<SysUser> list = userMapper.selectByExample(example);
+            PageInfo<SysUser> pageInfo = new PageInfo<>(list, pagination.getPageSize());
+            return ResultVOUtil.success(pageInfo.getList(), (int) pageInfo.getTotal());
+        } else {
+            List list = userMapper.selectByExample(example);
+            return ResultVOUtil.success(list, list.size());
+        }
     }
 
     @Override
