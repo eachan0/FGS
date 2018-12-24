@@ -1,14 +1,25 @@
 package system.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import system.DTO.FormUser;
+import system.DTO.Pagination;
+import system.VO.ResultVO;
 import system.entity.SysUser;
+import system.entity.SysUserRole;
 import system.entityExamplke.SysUserExample;
 import system.mapper.SysUserMapper;
+import system.service.SysUserRoleService;
 import system.service.SysUserService;
 import system.utils.BCryptUtils;
+import system.utils.CurrentTime;
+import system.utils.ResultVOUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,6 +34,8 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Autowired
     SysUserMapper userMapper;
+    @Autowired
+    SysUserRoleService userRoleService;
 
     @Override
     public SysUser getUserByUserName(String username) {
@@ -33,8 +46,27 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
-    public int insertSelective(SysUser record) {
-        return userMapper.insertSelective(record);
+    public int insertSelective(FormUser record) {
+        SysUser user = new SysUser();
+        BeanUtils.copyProperties(record, user);
+        user.setCrateTime(CurrentTime.getCurrentTime(null));
+        BCryptUtils.encoder(user);
+        if( userMapper.insertSelective(user)>0){
+            Integer id = user.getId();
+            List<Integer> roles = record.getRoles();
+            if (roles!=null && roles.size()>0){
+                List<SysUserRole> list = new ArrayList<>();
+                roles.forEach(item->{
+                    SysUserRole sysUserRole = new SysUserRole();
+                    sysUserRole.setUserId(id);
+                    sysUserRole.setRoleId(item);
+                    list.add(sysUserRole);
+                });
+                return userRoleService.insertBatch(list);
+            }
+            return 1;
+        }
+        return 0;
     }
 
     @Override
@@ -48,14 +80,17 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
-    public List<SysUser> selectByExample(SysUserExample example) {
-        return userMapper.selectByExample(example);
+    public ResultVO selectByExample(SysUserExample example, Pagination pagination) {
+        PageHelper.startPage(pagination.getPage(),pagination.getPageSize());
+        List<SysUser> list = userMapper.selectByExample(example);
+        PageInfo<SysUser> pageInfo = new PageInfo<>(list,pagination.getPageSize());
+        return ResultVOUtil.success(pageInfo.getList(), (int) pageInfo.getTotal());
     }
 
     @Override
     public int resetPwd(List<SysUser> list) {
-        list.forEach(i->{
-            i.setPassword(BCryptUtils.encoder(i.getUsername()+"fgs"));
+        list.forEach(i -> {
+            i.setPassword(BCryptUtils.encoder(i.getUsername() + "fgs"));
         });
         return userMapper.updatePwdByIds(list);
     }

@@ -7,16 +7,15 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import system.DTO.FormUser;
+import system.DTO.Pagination;
 import system.VO.ResultVO;
 import system.entity.SysUser;
-import system.entityExamplke.SysUserExample;
 import system.enums.ExcptionEnum;
 import system.service.SysUserService;
 import system.utils.ResultVOUtil;
 import web.utils.BindingResultMsg;
 
 import javax.validation.Valid;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -34,9 +33,8 @@ public class UserController {
     @ApiOperation(value = "查询用户")
     @GetMapping("/users")
     @PreAuthorize("hasAnyAuthority('sys:user:select')")
-    public ResultVO getUser(){
-        List<SysUser> list = userService.selectByExample(null);
-        return ResultVOUtil.success(list,list.size());
+    public ResultVO getUser(Pagination pagination){
+        return userService.selectByExample(null,pagination);
     }
 
     @ApiOperation(value = "添加用户")
@@ -47,9 +45,9 @@ public class UserController {
         if (result.hasErrors()) {
             return BindingResultMsg.getErrorMsg(result);
         }
-//        return ResultVOUtil.sqlResult(userService.insertSelective(user));
-        System.out.println(user);
-        return ResultVOUtil.success();
+        return ResultVOUtil.sqlResult(userService.insertSelective(user));
+//        System.out.println(user);
+//        return ResultVOUtil.success();
     }
 
 

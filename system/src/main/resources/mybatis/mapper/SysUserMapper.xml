@@ -113,7 +113,7 @@
       #{password,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="system.entity.SysUser">
+  <insert id="insertSelective" parameterType="system.entity.SysUser" keyProperty="id" useGeneratedKeys="true">
     insert into sys_user
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">

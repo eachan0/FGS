@@ -7,6 +7,7 @@ import system.entity.SysUser;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author <a href="zhuyichen@cqyyt.com">Zhu Yichen</a>
@@ -18,7 +19,7 @@ import java.io.Serializable;
 @ToString
 public class FormUser implements Serializable {
     private static final long serialVersionUID = 7689213288929736707L;
-    private Integer[] roles;
+    private List<Integer> roles;
     private Boolean isLock;
     private String nickname;
     private String password;

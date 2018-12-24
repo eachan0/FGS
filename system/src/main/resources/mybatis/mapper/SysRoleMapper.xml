@@ -178,4 +178,7 @@
       role_name = #{roleName,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectByUsreId" parameterType="integer" resultType="role">
+    SELECT t1.* from sys_role t1 join sys_user_role t2 on t1.id = t2.role_id WHERE t2.user_id = #{id,jdbcType=INTEGER}
+  </select>
 </mapper>

@@ -32,7 +32,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        System.out.println(passwordEncoder.encode("admin"));
         SysUser user = userService.getUserByUserName(username);
         if (user==null){
             throw new UsernameNotFoundException("用户不存在！");

@@ -42,4 +42,9 @@ public class SysRoleServiceImpl implements SysRoleService {
     public List<SysRole> selectByExample(SysRoleExample example) {
         return roleMapper.selectByExample(example);
     }
+
+    @Override
+    public List<SysRole> selectByUsreId(Integer id) {
+        return roleMapper.selectByUsreId(id);
+    }
 }

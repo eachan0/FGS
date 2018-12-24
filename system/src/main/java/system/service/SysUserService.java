@@ -1,5 +1,8 @@
 package system.service;
 
+import system.DTO.FormUser;
+import system.DTO.Pagination;
+import system.VO.ResultVO;
 import system.entity.SysUser;
 import system.entityExamplke.SysUserExample;
 
@@ -13,9 +16,9 @@ import java.util.List;
  **/
 public interface SysUserService {
     SysUser getUserByUserName(String username);
-    int insertSelective(SysUser record);
+    int insertSelective(FormUser record);
     int deleteByExample(SysUserExample example);
     int updateByPrimaryKeySelective(SysUser record);
-    List<SysUser> selectByExample(SysUserExample example);
+    ResultVO selectByExample(SysUserExample example, Pagination pagination);
     int resetPwd(List<SysUser> list);
 }

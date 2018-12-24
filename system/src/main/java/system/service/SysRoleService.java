@@ -16,4 +16,5 @@ public interface SysRoleService {
     int deleteByExample(SysRoleExample example);
     int updateByPrimaryKeySelective(SysRole record);
     List<SysRole> selectByExample(SysRoleExample example);
+    List<SysRole> selectByUsreId(Integer id);
 }

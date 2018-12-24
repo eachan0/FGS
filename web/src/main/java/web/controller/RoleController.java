@@ -72,4 +72,15 @@ public class RoleController {
         List<SysRole> sysRoles = roleService.selectByExample(null);
         return ResultVOUtil.success(sysRoles,sysRoles.size());
     }
+
+    @ApiOperation(value = "查询角色列表")
+    @GetMapping("/roleByUserId/{id}")
+    @PreAuthorize("hasAnyAuthority('sys:role:select')")
+    public ResultVO getRoleListByUserId(@PathVariable(required = false) Integer id){
+        if (id==null||id<0){
+            return ResultVOUtil.error(ExcptionEnum.DATA_NULL);
+        }
+        List<SysRole> sysRoles = roleService.selectByUsreId(id);
+        return ResultVOUtil.success(sysRoles,sysRoles.size());
+    }
 }

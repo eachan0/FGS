@@ -103,6 +103,17 @@
     values (#{id,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}
       )
   </insert>
+  <insert id="insertBatch" parameterType="java.util.List">
+    insert into sys_user_role (role_id, user_id
+      )
+    values
+    <foreach collection="list" open="" close="" separator="," item="item">
+      (
+         #{item.roleId,jdbcType=INTEGER},
+         #{item.userId,jdbcType=INTEGER}
+      )
+    </foreach>
+  </insert>
   <insert id="insertSelective" parameterType="system.entity.SysUserRole">
     insert into sys_user_role
     <trim prefix="(" suffix=")" suffixOverrides=",">

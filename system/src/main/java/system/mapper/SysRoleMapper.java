@@ -78,4 +78,6 @@ public interface SysRoleMapper {
      * @mbg.generated
      */
     int updateByPrimaryKey(SysRole record);
+
+    List<SysRole> selectByUsreId(Integer id);
 }

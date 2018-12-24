@@ -21,7 +21,8 @@ public enum ExcptionEnum {
      *
      */
     DO_ERROR(4,"操作错误"),
-    Access_Denied(403,"权限不足")
+    Access_Denied(403,"权限不足"),
+    EXIST_ERROR(300,"数据已存在"),
     ;
     private Integer code;
     private String msg;

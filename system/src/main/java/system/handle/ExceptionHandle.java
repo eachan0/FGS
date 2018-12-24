@@ -1,6 +1,7 @@
 package system.handle;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -27,6 +28,9 @@ public class ExceptionHandle {
             return ResultVOUtil.error(exception.getCode(), exception.getMessage());
         } else if(e instanceof AccessDeniedException){
             return ResultVOUtil.error(ExcptionEnum.Access_Denied);
+        } else if (e instanceof DuplicateKeyException){
+            log.info("[数据库异常]{}", e);
+            return ResultVOUtil.error(ExcptionEnum.EXIST_ERROR);
         }
         else{
             log.info("[系统异常]{}", e);

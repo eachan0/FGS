@@ -36,6 +36,7 @@ public interface SysUserRoleMapper {
      * @mbg.generated
      */
     int insert(SysUserRole record);
+    int insertBatch(List<SysUserRole> list);
 
     /**
      *
