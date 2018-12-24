@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import system.DTO.FormRole;
 import system.DTO.Pagination;
 import system.VO.ResultVO;
 import system.entity.SysRole;
@@ -42,11 +43,13 @@ public class RoleController {
     @ApiImplicitParam(name = "role",value = "角色",required = true,paramType = "JsonString")
     @PostMapping("/role")
     @PreAuthorize("hasAnyAuthority('sys:role:add')")
-    public ResultVO addRole(@Valid @RequestBody SysRole role, BindingResult result){
+    public ResultVO addRole(@Valid @RequestBody FormRole role, BindingResult result){
         if (result.hasErrors()){
             return ResultVOUtil.error(ExcptionEnum.PARAM_ERROR);
         }
-        return ResultVOUtil.sqlResult(roleService.insertSelective(role));
+        System.out.println(role);
+        return ResultVOUtil.success();
+//        return ResultVOUtil.sqlResult(roleService.insertSelective(role));
     }
 
     @ApiOperation(value = "删除角色")
