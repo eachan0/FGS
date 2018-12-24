@@ -2,6 +2,7 @@ package web.controller;
 
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
@@ -10,7 +11,10 @@ import system.DTO.FormUser;
 import system.DTO.Pagination;
 import system.VO.ResultVO;
 import system.entity.SysUser;
+import system.entityExamplke.SysUserExample;
+import system.entityExamplke.SysUserRoleExample;
 import system.enums.ExcptionEnum;
+import system.service.SysUserRoleService;
 import system.service.SysUserService;
 import system.utils.ResultVOUtil;
 import web.utils.BindingResultMsg;
@@ -29,12 +33,28 @@ import java.util.List;
 public class UserController {
     @Autowired
     SysUserService userService;
+    @Autowired
+    SysUserRoleService userRoleService;
 
     @ApiOperation(value = "查询用户")
     @GetMapping("/users")
     @PreAuthorize("hasAnyAuthority('sys:user:select')")
-    public ResultVO getUser(Pagination pagination){
-        return userService.selectByExample(null,pagination);
+    public ResultVO getUser(Pagination pagination,SysUser user){
+        SysUserExample userExample = null;
+        if (user!=null){
+            userExample = new SysUserExample();
+            SysUserExample.Criteria criteria = userExample.createCriteria();
+            if (StringUtils.isNotBlank(user.getUsername())){
+                criteria.andUsernameLike("%"+user.getUsername()+"%");
+            }
+            if (StringUtils.isNotBlank(user.getNickname())){
+                criteria.andNicknameLike("%"+user.getNickname()+"%");
+            }
+            if (user.getIsLock() != null) {
+                criteria.andIsLockEqualTo(user.getIsLock());
+            }
+        }
+        return userService.selectByExample(userExample,pagination);
     }
 
     @ApiOperation(value = "添加用户")
@@ -59,9 +79,12 @@ public class UserController {
         if (ids==null || ids.size()<=0){
             return ResultVOUtil.error(ExcptionEnum.PARAM_ERROR);
         }
+//        SysUserRoleExample userRoleExample = new SysUserRoleExample();
+//        userRoleExample.createCriteria().andUserIdIn(ids);
+//        userRoleService.deleteByExample(userRoleExample);
 //        SysUserExample userExample = new SysUserExample();
 //        userExample.createCriteria().andIdIn(ids);
-//        return ResultVOUtil.sqlResult(userService.deleteByExample(userExample));
+//      return ResultVOUtil.sqlResult(userService.deleteByExample(userExample));
         return ResultVOUtil.success(ids);
     }
 

@@ -9,8 +9,12 @@ import org.springframework.web.bind.annotation.*;
 import system.VO.ResultVO;
 import system.entity.SysRole;
 import system.entityExamplke.SysRoleExample;
+import system.entityExamplke.SysRoleMenuExample;
+import system.entityExamplke.SysUserRoleExample;
 import system.enums.ExcptionEnum;
+import system.service.SysRoleMenuService;
 import system.service.SysRoleService;
+import system.service.SysUserRoleService;
 import system.utils.ResultVOUtil;
 
 import javax.validation.Valid;
@@ -27,6 +31,10 @@ import java.util.List;
 public class RoleController {
     @Autowired
     SysRoleService roleService;
+    @Autowired
+    SysUserRoleService userRoleService;
+    @Autowired
+    SysRoleMenuService roleMenuService;
 
     @ApiOperation(value = "添加角色")
     @ApiImplicitParam(name = "role",value = "角色",required = true,paramType = "JsonString")
@@ -47,6 +55,12 @@ public class RoleController {
         if ((ids == null) || (ids.size() <= 0)){
             return ResultVOUtil.error(ExcptionEnum.PARAM_ERROR);
         }
+//        SysUserRoleExample userRoleExample = new SysUserRoleExample();
+//        userRoleExample.createCriteria().andRoleIdIn(ids);
+//        userRoleService.deleteByExample(userRoleExample);
+//        SysRoleMenuExample roleMenuExample = new SysRoleMenuExample();
+//        roleMenuExample.createCriteria().andRoleIdIn(ids);
+//        roleMenuService.deleteByExample(roleMenuExample);
 //        SysRoleExample roleExample = new SysRoleExample();
 //        roleExample.createCriteria().andIdIn(ids);
 //        return ResultVOUtil.sqlResult(roleService.deleteByExample(roleExample));

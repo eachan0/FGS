@@ -47,4 +47,9 @@ public class SysUserRoleServiceImpl implements SysUserRoleService {
         userRoleMapper.deleteByExample(userRoleExample);
         return insertBatch(userRoles);
     }
+
+    @Override
+    public int deleteByExample(SysUserRoleExample example) {
+        return userRoleMapper.deleteByExample(example);
+    }
 }

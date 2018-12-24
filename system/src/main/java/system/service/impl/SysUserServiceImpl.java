@@ -12,6 +12,7 @@ import system.VO.ResultVO;
 import system.entity.SysUser;
 import system.entity.SysUserRole;
 import system.entityExamplke.SysUserExample;
+import system.entityExamplke.SysUserRoleExample;
 import system.mapper.SysUserMapper;
 import system.service.SysUserRoleService;
 import system.service.SysUserService;

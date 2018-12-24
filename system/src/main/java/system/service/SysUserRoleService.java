@@ -1,6 +1,7 @@
 package system.service;
 
 import system.entity.SysUserRole;
+import system.entityExamplke.SysUserRoleExample;
 
 import java.util.List;
 
@@ -13,4 +14,5 @@ import java.util.List;
 public interface SysUserRoleService {
     int insertBatch(List<SysUserRole> list);
     int delByUserId(List<Integer> list);
+    int deleteByExample(SysUserRoleExample example);
 }
