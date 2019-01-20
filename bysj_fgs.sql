@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 20/12/2018 20:54:14
+ Date: 20/01/2019 21:40:51
 */
 
 SET NAMES utf8mb4;
@@ -64,14 +64,16 @@ CREATE TABLE `sys_role`  (
   `is_enable` bit(1) NULL DEFAULT b'1' COMMENT '是否启用',
   `role_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '名称',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_role
 -- ----------------------------
-INSERT INTO `sys_role` VALUES (1, b'1', 'sys');
-INSERT INTO `sys_role` VALUES (2, b'1', 'AAA');
-INSERT INTO `sys_role` VALUES (3, b'1', 'BBB');
+INSERT INTO `sys_role` VALUES (1, b'1', 'SYS');
+INSERT INTO `sys_role` VALUES (2, b'0', 'AAA');
+INSERT INTO `sys_role` VALUES (3, b'0', 'BBB');
+INSERT INTO `sys_role` VALUES (4, b'1', 'TEST');
+INSERT INTO `sys_role` VALUES (12, b'1', 'FGSSYS');
 
 -- ----------------------------
 -- Table structure for sys_role_menu
@@ -105,6 +107,8 @@ INSERT INTO `sys_role_menu` VALUES (15, 13, 1);
 INSERT INTO `sys_role_menu` VALUES (16, 14, 1);
 INSERT INTO `sys_role_menu` VALUES (17, 15, 1);
 INSERT INTO `sys_role_menu` VALUES (18, 16, 1);
+INSERT INTO `sys_role_menu` VALUES (81, 18, 4);
+INSERT INTO `sys_role_menu` VALUES (80, 17, 4);
 
 -- ----------------------------
 -- Table structure for sys_user
@@ -120,27 +124,27 @@ CREATE TABLE `sys_user`  (
   `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '密码',
   `sex` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '性别',
   `username` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '用户名',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE INDEX `username`(`username`) USING BTREE
+) ENGINE = MyISAM AUTO_INCREMENT = 31 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES (1, '2018-12-20 17:27:06', b'1', b'1', b'1', 'admin', '$2a$10$kWoxn2A5nzjHlve1.ct4fuBRjc55hLiJ/BbPM.p3PfQ7hDnD29rzu', '1', 'admin');
+INSERT INTO `sys_user` VALUES (1, '2019-01-20 15:02:19', b'1', b'1', b'1', 'admin', '$2a$10$Be.gjFzNoeBM1XSCNHFPv.H/NxNrzZRXLOwMKtJEp0tP9BrnKZQ4q', '0', 'admin');
 INSERT INTO `sys_user` VALUES (2, '2018-12-20 20:49:16', b'1', b'0', b'0', 'test007', 'test', '0', 'test');
-INSERT INTO `sys_user` VALUES (3, '2018-12-20 20:04:59', b'1', b'0', b'0', 'teest', '$2a$10$Lhfdoe7WWp1OtPYSCwrM6eoQUkIQOPJFJ.sgLGSVlacXnEaBDr7w6', NULL, 'test');
-INSERT INTO `sys_user` VALUES (4, '2018-12-20 19:51:11', b'1', b'0', b'0', NULL, '$2a$10$wd/ZVvkBb/ZyZ8B2HueM..UdRixtU0ROCqLmvtRpiWH5SxcDLz4cG', NULL, 'test');
-INSERT INTO `sys_user` VALUES (5, '2018-12-20 19:51:11', b'1', b'0', b'0', NULL, '$2a$10$9dlnqy1YFsgxEXRQ0Ust2ebwNL3zlcHjrXWQ/kCMixtvcj7YE2nIi', NULL, 'test');
-INSERT INTO `sys_user` VALUES (6, '2018-12-20 19:27:51', b'1', b'0', b'0', NULL, NULL, NULL, 'test');
-INSERT INTO `sys_user` VALUES (7, '2018-12-20 19:27:51', b'1', b'0', b'0', NULL, NULL, NULL, 'test');
-INSERT INTO `sys_user` VALUES (8, '2018-12-20 19:27:52', b'1', b'0', b'0', NULL, NULL, NULL, 'test');
-INSERT INTO `sys_user` VALUES (9, '2018-12-20 19:27:53', b'1', b'0', b'0', NULL, NULL, NULL, 'test');
-INSERT INTO `sys_user` VALUES (10, '2018-12-20 19:27:53', b'1', b'0', b'0', NULL, NULL, NULL, 'test');
-INSERT INTO `sys_user` VALUES (11, '2018-12-20 19:27:54', b'1', b'0', b'0', NULL, NULL, NULL, 'test');
-INSERT INTO `sys_user` VALUES (12, '2018-12-20 19:27:54', b'1', b'0', b'0', NULL, NULL, NULL, 'test');
-INSERT INTO `sys_user` VALUES (13, '2018-12-20 19:27:55', b'1', b'0', b'0', NULL, NULL, NULL, 'test');
-INSERT INTO `sys_user` VALUES (14, '2018-12-20 19:27:56', b'1', b'0', b'0', NULL, NULL, NULL, 'test');
-INSERT INTO `sys_user` VALUES (15, '2018-12-20 20:01:01', b'1', b'0', b'0', NULL, '$2a$10$0sM46it9/qgJBMz/D4VbC.0RkkJm12oP13YETG0guk6MFv.vqaTLG', NULL, 'test');
+INSERT INTO `sys_user` VALUES (19, '2018-12-21 04:54:10', b'1', b'1', b'1', '123', '$2a$10$PFcYhZtUKl2x2icANCEBQOaGED.MPeech4l8Yt9MtD4IQ20s6iwZS', '男', 'admin007');
+INSERT INTO `sys_user` VALUES (20, '2018-12-21 05:08:15', b'1', b'1', b'1', '123', '$2a$10$L4JbT6PZnFLoqCcFR7TAC.4xk.StrSo03EZ4a19Wv2p.rjwS.Id0q', '男', 'admin008');
+INSERT INTO `sys_user` VALUES (21, NULL, b'1', b'1', b'1', NULL, NULL, NULL, 'admin1');
+INSERT INTO `sys_user` VALUES (22, NULL, b'1', b'1', b'1', NULL, NULL, NULL, 'admin2');
+INSERT INTO `sys_user` VALUES (23, NULL, b'1', b'1', b'1', NULL, NULL, NULL, 'admin3');
+INSERT INTO `sys_user` VALUES (24, NULL, b'1', b'1', b'1', NULL, NULL, NULL, 'admin4');
+INSERT INTO `sys_user` VALUES (25, NULL, b'1', b'1', b'1', NULL, NULL, NULL, 'admin5');
+INSERT INTO `sys_user` VALUES (26, NULL, b'1', b'1', b'1', NULL, NULL, NULL, 'admin6');
+INSERT INTO `sys_user` VALUES (27, NULL, b'1', b'1', b'1', NULL, NULL, NULL, 'admin7');
+INSERT INTO `sys_user` VALUES (28, NULL, b'1', b'1', b'1', NULL, NULL, NULL, 'admin8');
+INSERT INTO `sys_user` VALUES (29, NULL, b'1', b'1', b'1', NULL, NULL, NULL, 'admin9');
+INSERT INTO `sys_user` VALUES (30, NULL, b'1', b'1', b'1', NULL, NULL, NULL, 'admin10');
 
 -- ----------------------------
 -- Table structure for sys_user_role
@@ -151,13 +155,17 @@ CREATE TABLE `sys_user_role`  (
   `role_id` int(11) NULL DEFAULT NULL COMMENT '角色编号',
   `user_id` int(11) NULL DEFAULT NULL COMMENT '用户编号',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Fixed;
+) ENGINE = MyISAM AUTO_INCREMENT = 14 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Fixed;
 
 -- ----------------------------
 -- Records of sys_user_role
 -- ----------------------------
-INSERT INTO `sys_user_role` VALUES (1, 1, 1);
-INSERT INTO `sys_user_role` VALUES (2, 2, 1);
+INSERT INTO `sys_user_role` VALUES (12, 2, 1);
+INSERT INTO `sys_user_role` VALUES (11, 1, 1);
+INSERT INTO `sys_user_role` VALUES (10, 3, 20);
+INSERT INTO `sys_user_role` VALUES (9, 2, 20);
+INSERT INTO `sys_user_role` VALUES (8, 1, 19);
+INSERT INTO `sys_user_role` VALUES (13, 3, 1);
 
 -- ----------------------------
 -- Procedure structure for getMenuListByUserName
