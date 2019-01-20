@@ -3,6 +3,7 @@ package web.controller;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
@@ -12,8 +13,6 @@ import system.DTO.Pagination;
 import system.VO.ResultVO;
 import system.entity.SysRole;
 import system.entityExamplke.SysRoleExample;
-import system.entityExamplke.SysRoleMenuExample;
-import system.entityExamplke.SysUserRoleExample;
 import system.enums.ExcptionEnum;
 import system.service.SysRoleMenuService;
 import system.service.SysRoleService;
@@ -21,6 +20,7 @@ import system.service.SysUserRoleService;
 import system.utils.ResultVOUtil;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -47,9 +47,18 @@ public class RoleController {
         if (result.hasErrors()){
             return ResultVOUtil.error(ExcptionEnum.PARAM_ERROR);
         }
-        System.out.println(role);
+        SysRole sysRole = new SysRole();
+        BeanUtils.copyProperties(role,sysRole);
+        Integer i = roleService.insertSelective(sysRole);
+        if (i==null || i < 1){
+            return ResultVOUtil.error();
+        }
+        ArrayList<Integer> ids = role.getMenus();
+        if (ids!=null && ids.size()>0){
+            ids.add(i);
+            roleMenuService.add(ids);
+        }
         return ResultVOUtil.success();
-//        return ResultVOUtil.sqlResult(roleService.insertSelective(role));
     }
 
     @ApiOperation(value = "删除角色")

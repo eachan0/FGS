@@ -35,6 +35,11 @@ public class SysMenuServiceImpl implements SysMenuService {
     }
 
     @Override
+    public List<SysMenu> getMenuByRoleId(Integer id) {
+        return menuMapper.getMenuByRoleId(id);
+    }
+
+    @Override
     public int deleteByExample(SysMenuExample example) {
         return menuMapper.deleteByExample(example);
     }

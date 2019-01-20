@@ -2,6 +2,8 @@ package system.service;
 
 import system.entityExamplke.SysRoleMenuExample;
 
+import java.util.ArrayList;
+
 /**
  * @author <a href="zhuyichen@cqyyt.com">Zhu Yichen</a>
  * @version 1.0
@@ -10,4 +12,5 @@ import system.entityExamplke.SysRoleMenuExample;
  */
 public interface SysRoleMenuService {
     int deleteByExample(SysRoleMenuExample example);
+    Integer add(ArrayList<Integer> list);
 }

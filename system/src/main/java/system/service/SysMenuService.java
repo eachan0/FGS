@@ -19,4 +19,5 @@ public interface SysMenuService {
     int updateByPrimaryKeySelective(SysMenu menu);
     List<SysMenu> selectByExample(SysMenuExample example);
 
+    List<SysMenu> getMenuByRoleId(Integer id);
 }

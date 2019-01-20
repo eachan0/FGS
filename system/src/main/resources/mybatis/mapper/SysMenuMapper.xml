@@ -258,4 +258,10 @@
   <select id="getMenuListByUserName" resultType="menu" parameterType="string" statementType="CALLABLE">
     {call getMenuListByUserName(#{username,jdbcType=VARCHAR})}
   </select>
+  <select id="getMenuByRoleId" resultType="menu" parameterType="integer">
+    SELECT b.*  FROM sys_role_menu a
+    left join sys_menu b
+    on a.menu_id=b.id
+    where a.role_id = #{id};
+  </select>
 </mapper>

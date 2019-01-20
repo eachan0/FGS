@@ -14,7 +14,7 @@ import java.util.List;
  * @desc SysRoleService
  */
 public interface SysRoleService {
-    int insertSelective(SysRole record);
+    Integer insertSelective(SysRole record);
     int deleteByExample(SysRoleExample example);
     int updateByPrimaryKeySelective(SysRole record);
     ResultVO selectByExample(SysRoleExample example, Pagination pagination);

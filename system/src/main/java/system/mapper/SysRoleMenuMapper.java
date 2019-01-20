@@ -78,4 +78,6 @@ public interface SysRoleMenuMapper {
      * @mbg.generated
      */
     int updateByPrimaryKey(SysRoleMenu record);
+
+    Integer insertBatch(List<SysRoleMenu> list);
 }

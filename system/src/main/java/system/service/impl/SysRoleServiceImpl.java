@@ -30,8 +30,9 @@ public class SysRoleServiceImpl implements SysRoleService {
     SysRoleMapper roleMapper;
 
     @Override
-    public int insertSelective(SysRole record) {
-        return roleMapper.insertSelective(record);
+    public Integer insertSelective(SysRole record) {
+        roleMapper.insertSelective(record);
+        return record.getId();
     }
 
     @Override

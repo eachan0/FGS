@@ -2,6 +2,7 @@ package web.controller;
 
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
@@ -30,8 +31,6 @@ import java.util.List;
 public class MenuController {
     @Autowired
     private SysMenuService menuService;
-    @Autowired
-    private SysRoleMenuService roleMenuService;
 
     @ApiOperation(value = "获取菜单列表",notes = "admin")
     @PostMapping("/list")
@@ -40,6 +39,19 @@ public class MenuController {
         List<SysMenu> list =  menuService.selectByExample(null);
         return ResultVOUtil.success(list,list.size());
     }
+
+    @ApiOperation(value = "获取菜单")
+    @ApiImplicitParam(name = "id",value = "id",required = true,paramType = "Integer")
+    @GetMapping("/getMenuByRoleId/{id}")
+    @PreAuthorize("hasAnyAuthority('sys:menu:select')")
+    public ResultVO getMenuByRoleId(@PathVariable(required = false)Integer id){
+        if (id==null|| id<1){
+            return ResultVOUtil.error(ExcptionEnum.DATA_NULL);
+        }
+        List<SysMenu> list = menuService.getMenuByRoleId(id);
+        return ResultVOUtil.success(list);
+    }
+
 
     @ApiOperation(value = "增加菜单")
     @ApiImplicitParam(name = "menu",value = "菜单",required = true,paramType = "JsonString")

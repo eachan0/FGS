@@ -6,6 +6,7 @@ import lombok.ToString;
 import system.entity.SysRole;
 
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,7 +19,7 @@ import java.util.List;
 @ToString
 public class FormRole{
     private static final long serialVersionUID = -1325506101361452847L;
-    List<Integer> menus;
+    ArrayList<Integer> menus;
     /**
      * 是否启用
      */

@@ -9,10 +9,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @SpringBootApplication
 @ComponentScan(basePackages = {"system","common","security","web"})
-//"system","common","security",
 @MapperScan(basePackages = "system.mapper")
 public class WebApplication {
-
 
     public static void main(String[] args) {
 

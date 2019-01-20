@@ -80,4 +80,6 @@ public interface SysMenuMapper {
     int updateByPrimaryKey(SysMenu record);
 
     List<SysMenu> getMenuListByUserName(String username);
+
+    List<SysMenu> getMenuByRoleId(Integer id);
 }

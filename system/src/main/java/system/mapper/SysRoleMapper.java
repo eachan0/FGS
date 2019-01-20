@@ -8,8 +8,10 @@ package system.mapper;
 
 import org.apache.ibatis.annotations.Param;
 import system.entity.SysRole;
+import system.entity.SysRoleMenu;
 import system.entityExamplke.SysRoleExample;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface SysRoleMapper {

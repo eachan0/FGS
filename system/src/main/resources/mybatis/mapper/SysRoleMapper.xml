@@ -97,13 +97,13 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="system.entity.SysRole">
+  <insert id="insert" parameterType="system.entity.SysRole" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
     insert into sys_role (id, is_enable, role_name
       )
     values (#{id,jdbcType=INTEGER}, #{isEnable,jdbcType=BIT}, #{roleName,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="system.entity.SysRole">
+  <insert id="insertSelective" parameterType="system.entity.SysRole" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
     insert into sys_role
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
