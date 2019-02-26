@@ -101,4 +101,9 @@ public class SysUserServiceImpl implements SysUserService {
         });
         return userMapper.updatePwdByIds(list);
     }
+
+    @Override
+    public int insert(SysUser user) {
+        return userMapper.insert(user);
+    }
 }

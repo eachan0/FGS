@@ -1,5 +1,6 @@
 package system.service.impl;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -32,6 +33,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        if (StringUtils.isBlank(username)){
+            throw new UsernameNotFoundException("用户不存在！");
+        }
         SysUser user = userService.getUserByUserName(username);
         if (user==null){
             throw new UsernameNotFoundException("用户不存在！");

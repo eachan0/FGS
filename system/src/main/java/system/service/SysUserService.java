@@ -21,4 +21,5 @@ public interface SysUserService {
     int updateByPrimaryKeySelective(SysUser record);
     ResultVO selectByExample(SysUserExample example, Pagination pagination);
     int resetPwd(List<SysUser> list);
+    int insert(SysUser user);
 }
