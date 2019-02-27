@@ -1,10 +1,14 @@
 package web.controller.shop;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import system.DTO.FormUser;
 import system.entity.SysUser;
 import system.service.SysUserService;
 import system.utils.ResultVOUtil;
+
+import java.util.Date;
 
 /**
  * @author <a href="zhuyichen@cqyyt.com">Zhu Yichen</a>
@@ -24,9 +28,15 @@ public class UserDoController {
         return ResultVOUtil.success(str);
     }
     @PostMapping("/register")
-    public Object postData(@RequestBody(required = false) SysUser user){
+    public Object postData(@RequestBody(required = false) FormUser user){
         if (user!=null){
-            return ResultVOUtil.sqlResult(userService.insert(user));
+            SysUser sysUser = new SysUser();
+            BeanUtils.copyProperties(user,sysUser);
+            sysUser.setIsEnable(true);
+            sysUser.setIsExpired(true);
+            sysUser.setIsLock(true);
+            sysUser.setCrateTime(new Date());
+            return ResultVOUtil.sqlResult(userService.insert(null));
         }
         return ResultVOUtil.error();
     }
