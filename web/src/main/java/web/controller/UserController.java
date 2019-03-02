@@ -5,9 +5,12 @@ import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import system.DTO.FormPass;
 import system.DTO.FormUser;
+import system.DTO.LoginUser;
 import system.DTO.Pagination;
 import system.VO.ResultVO;
 import system.entity.SysUser;
@@ -16,6 +19,7 @@ import system.entityExamplke.SysUserRoleExample;
 import system.enums.ExcptionEnum;
 import system.service.SysUserRoleService;
 import system.service.SysUserService;
+import system.utils.BCryptUtils;
 import system.utils.ResultVOUtil;
 import web.utils.BindingResultMsg;
 
@@ -108,5 +112,19 @@ public class UserController {
             return ResultVOUtil.error(ExcptionEnum.DATA_NULL);
         }
         return ResultVOUtil.success(userService.resetPwd(list));
+    }
+
+    @PostMapping("/changepwd")
+    public ResultVO changePwd(@RequestBody(required = false) FormPass pass, Authentication authentication){
+        if (pass==null){
+            return ResultVOUtil.error("参数错误");
+        }
+        LoginUser user = (LoginUser) authentication.getPrincipal();
+        String password = userService.getPwdById(user.getId());
+        if (BCryptUtils.matches(pass.getOldPass(),password)){
+            user.setPassword(BCryptUtils.encoder(pass.getNewPass()));
+            return ResultVOUtil.sqlResult(userService.updateByPrimaryKeySelective(user));
+        }
+        return ResultVOUtil.error("原密码不正确");
     }
 }

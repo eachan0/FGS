@@ -88,7 +88,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from sys_user
     where id = #{id,jdbcType=INTEGER}
@@ -104,12 +104,12 @@
     </if>
   </delete>
   <insert id="insert" parameterType="system.entity.SysUser">
-    insert into sys_user (id, crate_time, is_enable, 
-      is_expired, is_lock, nickname, 
+    insert into sys_user (id, crate_time, is_enable,
+      is_expired, is_lock, nickname,
       password, sex, username
       )
-    values (#{id,jdbcType=INTEGER}, #{crateTime,jdbcType=TIMESTAMP}, #{isEnable,jdbcType=BIT}, 
-      #{isExpired,jdbcType=BIT}, #{isLock,jdbcType=BIT}, #{nickname,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{crateTime,jdbcType=TIMESTAMP}, #{isEnable,jdbcType=BIT},
+      #{isExpired,jdbcType=BIT}, #{isLock,jdbcType=BIT}, #{nickname,jdbcType=VARCHAR},
       #{password,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}
       )
   </insert>
@@ -282,4 +282,7 @@
       #{item.id,jdbcType=INTEGER}
     </foreach>
   </update>
+  <select id="getPwdById" resultType="string" parameterType="integer">
+    select password from sys_user where id = #{xxx}
+  </select>
 </mapper>

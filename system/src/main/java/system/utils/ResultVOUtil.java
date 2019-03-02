@@ -35,6 +35,13 @@ public class ResultVOUtil {
         resultVO.setData(null);
         return resultVO;
     }
+    public static ResultVO error(String msg){
+        ResultVO<Object> resultVO = new ResultVO<>();
+        resultVO.setCode(1);
+        resultVO.setMsg(msg);
+        resultVO.setData(null);
+        return resultVO;
+    }
     public static ResultVO error(Integer code ,String msg){
         ResultVO<Object> resultVO = new ResultVO<>();
         resultVO.setCode(code);

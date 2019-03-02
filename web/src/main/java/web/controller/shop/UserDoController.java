@@ -7,6 +7,7 @@ import system.DTO.FormUser;
 import system.entity.SysUser;
 import system.service.SysUserService;
 import system.utils.ResultVOUtil;
+import web.utils.DateUtil;
 
 import java.util.Date;
 
@@ -27,8 +28,12 @@ public class UserDoController {
     public Object getData(@RequestParam(required = false) String str){
         return ResultVOUtil.success(str);
     }
+    @PostMapping("/testurl2")
+    public Object postData(@RequestParam(required = false) String str){
+        return ResultVOUtil.success(str);
+    }
     @PostMapping("/register")
-    public Object postData(@RequestBody(required = false) FormUser user){
+    public Object register(@RequestBody(required = false) FormUser user){
         if (user!=null){
             SysUser sysUser = new SysUser();
             BeanUtils.copyProperties(user,sysUser);
@@ -36,8 +41,10 @@ public class UserDoController {
             sysUser.setIsExpired(true);
             sysUser.setIsLock(true);
             sysUser.setCrateTime(new Date());
-            return ResultVOUtil.sqlResult(userService.insert(null));
+            return ResultVOUtil.sqlResult(userService.insert(sysUser));
         }
         return ResultVOUtil.error();
     }
+
+//    @PostMapping("")
 }

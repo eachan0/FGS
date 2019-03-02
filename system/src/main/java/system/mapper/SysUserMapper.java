@@ -80,4 +80,6 @@ public interface SysUserMapper {
     int updateByPrimaryKey(SysUser record);
 
     int updatePwdByIds(List<SysUser> list);
+
+    String getPwdById(Integer id);
 }

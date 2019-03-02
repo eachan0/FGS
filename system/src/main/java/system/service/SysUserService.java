@@ -22,4 +22,5 @@ public interface SysUserService {
     ResultVO selectByExample(SysUserExample example, Pagination pagination);
     int resetPwd(List<SysUser> list);
     int insert(SysUser user);
+    String getPwdById(Integer id);
 }
