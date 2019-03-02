@@ -1,11 +1,16 @@
 package web.controller.shop;
 
+import io.swagger.models.auth.In;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 import system.DTO.FormUser;
+import system.VO.ResultVO;
 import system.entity.SysUser;
+import system.entity.UserAddress;
 import system.service.SysUserService;
+import system.service.UserAddressService;
 import system.utils.ResultVOUtil;
 import web.utils.DateUtil;
 
@@ -23,6 +28,9 @@ public class UserDoController {
 
     @Autowired
     SysUserService userService;
+
+    @Autowired
+    UserAddressService addressService;
 
     @GetMapping("/testurl1")
     public Object getData(@RequestParam(required = false) String str){
@@ -45,6 +53,26 @@ public class UserDoController {
         }
         return ResultVOUtil.error();
     }
+    @PostMapping("/putinfo")
+    public ResultVO putinfo(@RequestBody(required = false) SysUser user){
+        if (user==null || user.getId()==null){
+            return ResultVOUtil.error("修改失败");
+        }
+        return ResultVOUtil.sqlResult(userService.updateByPrimaryKeySelective(user));
+    }
 
-//    @PostMapping("")
+    @PostMapping("/address")
+    public ResultVO addAddress(@RequestBody(required = false)UserAddress address){
+        if (address==null || address.getUserId()==null){
+            return ResultVOUtil.error("参数错误");
+        }
+        return ResultVOUtil.sqlResult(addressService.setAddress(address));
+    }
+    @GetMapping("/address/{id}")
+    public ResultVO getAddress(@PathVariable(required = false) Integer id){
+        if (id==null || id<0){
+            ResultVOUtil.error();
+        }
+        return ResultVOUtil.success(addressService.getByUserId(id));
+    }
 }
