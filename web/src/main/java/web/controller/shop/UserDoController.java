@@ -5,6 +5,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import sun.misc.BASE64Encoder;
 import system.DTO.FormUser;
 import system.VO.ResultVO;
 import system.entity.SysUser;
@@ -14,6 +16,7 @@ import system.service.UserAddressService;
 import system.utils.ResultVOUtil;
 import web.utils.DateUtil;
 
+import java.io.IOException;
 import java.util.Date;
 
 /**
@@ -26,6 +29,8 @@ import java.util.Date;
 @RequestMapping("/shop")
 public class UserDoController {
 
+    private static final String IMG_TYPE = "data:image/jpeg;base64,";
+
     @Autowired
     SysUserService userService;
 
@@ -37,8 +42,15 @@ public class UserDoController {
         return ResultVOUtil.success(str);
     }
     @PostMapping("/testurl2")
-    public Object postData(@RequestParam(required = false) String str){
-        return ResultVOUtil.success(str);
+    public Object postData(@RequestParam(required = false) String name,@RequestParam MultipartFile file){
+        BASE64Encoder base64Encoder =new BASE64Encoder();
+        String base64EncoderImg = null;
+        try {
+            base64EncoderImg = IMG_TYPE+base64Encoder.encode(file.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return ResultVOUtil.success(base64EncoderImg);
     }
     @PostMapping("/register")
     public Object register(@RequestBody(required = false) FormUser user){
