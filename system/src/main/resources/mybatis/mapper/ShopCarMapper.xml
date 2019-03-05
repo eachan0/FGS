@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="system.mapper.ShopCarDao">
+<mapper namespace="system.mapper.ShopCarMapper">
   <resultMap id="BaseResultMap" type="shop_car">
     <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="pro_id" jdbcType="INTEGER" property="proId" />
@@ -180,4 +180,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
+  <select id="getShopcarVO" parameterType="integer" resultType="system.VO.ShopcarVO">
+      SELECT a.*,b.name,b.desc,b.photo from shop_car a join product b on a.pro_id = b.id where a.user_id = #{xxx}
+  </select>
 </mapper>

@@ -16,6 +16,8 @@ import system.utils.BCryptUtils;
 import system.utils.ResultVOUtil;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -68,12 +70,15 @@ public class ProductController {
     }
 
     @GetMapping("/product")
-    public ResultVO sel(Pagination pagination,String name){
+    public ResultVO sel(Pagination pagination,String name,Integer type){
         ProductExample example = new ProductExample();
-        example.createCriteria().andStatusEqualTo(1);
-        if (StringUtils.isNotBlank(name)){
-            example.clear();
-            example.createCriteria().andNameLike("%"+name+"%").andStatusEqualTo(1);
+
+        if (type!=null && type!=3){
+            example.createCriteria().andStatusEqualTo(type);
+        }else if (StringUtils.isNotBlank(name)){
+            example.createCriteria().andNameLike("%"+name+"%");
+        }else {
+            example.createCriteria().andStatusIn(Arrays.asList(1,2));
         }
         return productService.sel(pagination,example);
     }

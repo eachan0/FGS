@@ -2,10 +2,11 @@ package system.mapper;
 
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import system.VO.ShopcarVO;
 import system.entity.ShopCar;
 import system.entityExamplke.ShopCarExample;
 
-public interface ShopCarDao {
+public interface ShopCarMapper {
     long countByExample(ShopCarExample example);
 
     int deleteByExample(ShopCarExample example);
@@ -19,4 +20,6 @@ public interface ShopCarDao {
     int updateByExampleSelective(@Param("record") ShopCar record, @Param("example") ShopCarExample example);
 
     int updateByExample(@Param("record") ShopCar record, @Param("example") ShopCarExample example);
+
+    List<ShopcarVO> getShopcarVO(Integer uid);
 }
