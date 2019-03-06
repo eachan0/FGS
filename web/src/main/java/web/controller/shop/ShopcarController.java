@@ -34,7 +34,7 @@ public class ShopcarController {
     }
 
     @DeleteMapping("/shopcar")
-    public ResultVO del(@RequestBody List<Integer> ids){
+    public ResultVO del(@RequestBody(required = false) List<Integer> ids){
         if (ids == null || ids.size()<2){
             return ResultVOUtil.error(ExcptionEnum.DATA_NULL);
         }
