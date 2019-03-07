@@ -5,7 +5,7 @@ import org.apache.ibatis.annotations.Param;
 import system.entity.UserAddress;
 import system.entityExamplke.UserAddressExample;
 
-public interface UserAddressDao {
+public interface UserAddressMapper {
     long countByExample(UserAddressExample example);
 
     int deleteByExample(UserAddressExample example);

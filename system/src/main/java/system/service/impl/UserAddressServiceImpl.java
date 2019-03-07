@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import system.entity.UserAddress;
 import system.entityExamplke.UserAddressExample;
-import system.mapper.UserAddressDao;
+import system.mapper.UserAddressMapper;
 import system.service.UserAddressService;
 
 /**
@@ -19,7 +19,7 @@ import system.service.UserAddressService;
 public class UserAddressServiceImpl implements UserAddressService {
 
     @Autowired
-    UserAddressDao addressDao;
+    UserAddressMapper addressDao;
 
     @Override
     public int setAddress(UserAddress userAddress) {

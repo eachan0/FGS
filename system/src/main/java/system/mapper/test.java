@@ -2,8 +2,10 @@ package system.mapper;
 
 import org.apache.coyote.http11.OutputFilter;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.*;
 
 /**
  * @author <a href="zhuyichen@cqyyt.com">Zhu Yichen</a>
@@ -13,12 +15,16 @@ import java.util.List;
  */
 public class test {
     public static void main(String[] args) {
-        List<Integer> list = new ArrayList<>();
-        list.add(1);
-        list.add(2);
-        list.add(3);
-        list.add(4);
-        System.out.print(list.remove(0));
-        System.out.print(list.toString());
+        /*String[] split = LocalTime.now().toString().split(":");
+        StringBuilder orderNo = new StringBuilder();
+        for (String str:LocalDate.now().toString().split("-")){
+            orderNo.append(str);
+        }
+        orderNo.append(split[0]);
+        orderNo.append(split[1]);
+        String sp = split[2].substring(3,6);
+//        orderNo.append();
+        System.out.println(split[2]);
+        System.out.println(sp);*/
     }
 }
