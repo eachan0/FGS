@@ -51,7 +51,7 @@ public class SysUserServiceImpl implements SysUserService {
     public int insertSelective(FormUser record) {
         SysUser user = new SysUser();
         BeanUtils.copyProperties(record, user);
-        user.setCrateTime(CurrentTime.getCurrentTime(null));
+//        user.setCrateTime(CurrentTime.getCurrentTime(null));
         BCryptUtils.encoder(user);
         if (userMapper.insertSelective(user) > 0) {
             Integer id = user.getId();
