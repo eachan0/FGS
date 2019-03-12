@@ -199,6 +199,14 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
+  <select id="getProductVo" resultType="system.VO.ProductVo">
+    select * from product taba left join fight_group tabb on
+    taba.id = tabb.pro_id
+  </select>
+  <select id="getProductVoByType" resultType="system.VO.ProductVo" parameterType="integer">
+    select * from product taba left join fight_group tabb on
+    taba.id = tabb.pro_id where taba.status = #{xxx}
+  </select>
   <update id="updateByExampleSelective" parameterType="map">
     update product product
     <set>

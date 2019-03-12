@@ -57,4 +57,15 @@ public class ProductServiceImpl implements ProductService {
             return ResultVOUtil.success(list, list.size());
         }
     }
+
+    @Override
+    public ResultVO sel(Integer type) {
+        List list;
+        if (type==3){
+            list = productMapper.getProductVo();
+        }else{
+            list = productMapper.getProductVoByType(type);
+        }
+        return ResultVOUtil.success(list);
+    }
 }

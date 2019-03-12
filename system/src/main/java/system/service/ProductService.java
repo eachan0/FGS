@@ -18,4 +18,5 @@ public interface ProductService {
     int del(List<Integer> list);
     int put(Product product);
     ResultVO sel(Pagination pagination, ProductExample productExample);
+    ResultVO sel(Integer type);
 }

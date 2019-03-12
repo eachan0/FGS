@@ -82,4 +82,12 @@ public class ProductController {
         }
         return productService.sel(pagination,example);
     }
+    @GetMapping("/productbytype")
+    public ResultVO sel(Integer type){
+
+        if (type!=null && type>0 && type<4){
+            return productService.sel(type);
+        }
+        return ResultVOUtil.error(ExcptionEnum.DATA_NULL);
+    }
 }
