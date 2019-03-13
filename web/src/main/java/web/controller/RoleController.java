@@ -13,6 +13,8 @@ import system.DTO.Pagination;
 import system.VO.ResultVO;
 import system.entity.SysRole;
 import system.entityExamplke.SysRoleExample;
+import system.entityExamplke.SysRoleMenuExample;
+import system.entityExamplke.SysUserRoleExample;
 import system.enums.ExcptionEnum;
 import system.service.SysRoleMenuService;
 import system.service.SysRoleService;
@@ -69,17 +71,15 @@ public class RoleController {
         if ((ids == null) || (ids.size() <= 0)){
             return ResultVOUtil.error(ExcptionEnum.PARAM_ERROR);
         }
-//        SysUserRoleExample userRoleExample = new SysUserRoleExample();
-//        userRoleExample.createCriteria().andRoleIdIn(ids);
-//        userRoleService.deleteByExample(userRoleExample);
-//        SysRoleMenuExample roleMenuExample = new SysRoleMenuExample();
-//        roleMenuExample.createCriteria().andRoleIdIn(ids);
-//        roleMenuService.deleteByExample(roleMenuExample);
-//        SysRoleExample roleExample = new SysRoleExample();
-//        roleExample.createCriteria().andIdIn(ids);
-//        return ResultVOUtil.sqlResult(roleService.deleteByExample(roleExample));
-        ids.forEach(System.out::println);
-        return ResultVOUtil.success(ids);
+        SysUserRoleExample userRoleExample = new SysUserRoleExample();
+        userRoleExample.createCriteria().andRoleIdIn(ids);
+        userRoleService.deleteByExample(userRoleExample);
+        SysRoleMenuExample roleMenuExample = new SysRoleMenuExample();
+        roleMenuExample.createCriteria().andRoleIdIn(ids);
+        roleMenuService.deleteByExample(roleMenuExample);
+        SysRoleExample roleExample = new SysRoleExample();
+        roleExample.createCriteria().andIdIn(ids);
+        return ResultVOUtil.sqlResult(roleService.deleteByExample(roleExample));
     }
 
     @ApiOperation(value = "修改角色")

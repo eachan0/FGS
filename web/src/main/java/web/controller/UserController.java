@@ -75,8 +75,6 @@ public class UserController {
             return BindingResultMsg.getErrorMsg(result);
         }
         return ResultVOUtil.sqlResult(userService.insertSelective(user));
-//        System.out.println(user);
-//        return ResultVOUtil.success();
     }
 
 
@@ -88,13 +86,12 @@ public class UserController {
         if (ids == null || ids.size() <= 0) {
             return ResultVOUtil.error(ExcptionEnum.PARAM_ERROR);
         }
-//        SysUserRoleExample userRoleExample = new SysUserRoleExample();
-//        userRoleExample.createCriteria().andUserIdIn(ids);
-//        userRoleService.deleteByExample(userRoleExample);
-//        SysUserExample userExample = new SysUserExample();
-//        userExample.createCriteria().andIdIn(ids);
-//      return ResultVOUtil.sqlResult(userService.deleteByExample(userExample));
-        return ResultVOUtil.success(ids);
+        SysUserRoleExample userRoleExample = new SysUserRoleExample();
+        userRoleExample.createCriteria().andUserIdIn(ids);
+        userRoleService.deleteByExample(userRoleExample);
+        SysUserExample userExample = new SysUserExample();
+        userExample.createCriteria().andIdIn(ids);
+        return ResultVOUtil.sqlResult(userService.deleteByExample(userExample));
     }
 
     @ApiOperation(value = "修改用户")

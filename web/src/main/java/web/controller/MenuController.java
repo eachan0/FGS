@@ -31,6 +31,8 @@ import java.util.List;
 public class MenuController {
     @Autowired
     private SysMenuService menuService;
+    @Autowired
+    private SysRoleMenuService roleMenuService;
 
     @ApiOperation(value = "获取菜单列表",notes = "admin")
     @PostMapping("/list")
@@ -72,13 +74,12 @@ public class MenuController {
         if ((ids == null) || (ids.size() <= 0)){
             return ResultVOUtil.error(ExcptionEnum.PARAM_ERROR);
         }
-//        SysRoleMenuExample roleMenuExample = new SysRoleMenuExample();
-//        roleMenuExample.createCriteria().andMenuIdIn(ids);
-//        roleMenuService.deleteByExample(roleMenuExample);
-//        SysMenuExample menuExample = new SysMenuExample();
-//        menuExample.createCriteria().andIdIn(ids);
-//      eturn ResultVOUtil.sqlResult(menuService.deleteByExample(menuExample));
-        return ResultVOUtil.success(ids);
+        SysRoleMenuExample roleMenuExample = new SysRoleMenuExample();
+        roleMenuExample.createCriteria().andMenuIdIn(ids);
+        roleMenuService.deleteByExample(roleMenuExample);
+        SysMenuExample menuExample = new SysMenuExample();
+        menuExample.createCriteria().andIdIn(ids);
+        return ResultVOUtil.sqlResult(menuService.deleteByExample(menuExample));
     }
 
     @ApiOperation(value = "修改菜单")

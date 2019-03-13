@@ -24,6 +24,9 @@ public class FightGroupController {
 
     @PostMapping("/fightgroup")
     public ResultVO add(@RequestBody FightGroup entity){
+        if (entity.getProId()!=null && entity.getProId()>0){
+            return ResultVOUtil.sqlResult(service.update(entity));
+        }
         return ResultVOUtil.sqlResult(service.add(entity));
     }
 

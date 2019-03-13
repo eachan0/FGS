@@ -43,8 +43,7 @@ public class FightGroupServiceImpl implements FightGroupService {
 
     @Override
     public int update(FightGroup entity) {
-        return 0;
-//        return mapper.updateByPrimaryKeySelective(entity);
+        return mapper.updateByPrimaryKeySelective(entity);
     }
 
     @Override
