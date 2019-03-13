@@ -11,11 +11,47 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 10/03/2019 23:37:00
+ Date: 13/03/2019 14:07:54
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for fged
+-- ----------------------------
+DROP TABLE IF EXISTS `fged`;
+CREATE TABLE `fged`  (
+  `user_id` int(10) NOT NULL COMMENT '用户ID',
+  `fg_id` int(10) NOT NULL COMMENT '拼团ID',
+  PRIMARY KEY (`user_id`) USING BTREE,
+  INDEX `fg_id`(`fg_id`) USING BTREE,
+  CONSTRAINT `fged_ibfk_1` FOREIGN KEY (`fg_id`) REFERENCES `fight_group` (`pro_id`) ON DELETE CASCADE ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of fged
+-- ----------------------------
+INSERT INTO `fged` VALUES (39, 1);
+
+-- ----------------------------
+-- Table structure for fight_group
+-- ----------------------------
+DROP TABLE IF EXISTS `fight_group`;
+CREATE TABLE `fight_group`  (
+  `pro_id` int(10) NOT NULL COMMENT '商品编号',
+  `total_num` int(5) NULL DEFAULT NULL COMMENT '总人数',
+  `current_num` int(5) NULL DEFAULT 0 COMMENT '当前人数',
+  `start_time` datetime(0) NULL DEFAULT NULL COMMENT '开始时间',
+  `end_time` datetime(0) NULL DEFAULT NULL COMMENT '结束时间',
+  `status` int(1) NULL DEFAULT 1 COMMENT '状态',
+  PRIMARY KEY (`pro_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of fight_group
+-- ----------------------------
+INSERT INTO `fight_group` VALUES (1, 10, 10, '2019-03-13 06:01:49', '2019-03-13 16:00:00', 1);
 
 -- ----------------------------
 -- Table structure for product
@@ -30,7 +66,7 @@ CREATE TABLE `product`  (
   `tuan_price` double(255, 0) NULL DEFAULT NULL,
   `status` int(255) NULL DEFAULT 1,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6725 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 6726 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of product
@@ -126,6 +162,9 @@ INSERT INTO `sys_order` VALUES ('20190307233765239', 39, 4, 3.00, 1, 3.00, '2019
 INSERT INTO `sys_order` VALUES ('20190307233765439', 39, 5, 3.00, 1, 3.00, '2019-03-10 20:02:19', '1', 0);
 INSERT INTO `sys_order` VALUES ('20190310193634439', 39, 4, 3.00, 6, 18.00, '2019-03-10 20:02:13', '1', 0);
 INSERT INTO `sys_order` VALUES ('20190310193635539', 39, 5, 3.00, 9, 27.00, '2019-03-10 20:02:17', '1', 0);
+INSERT INTO `sys_order` VALUES ('20190313130047939', 39, 2, 2.00, 5, 10.00, '2019-03-13 13:54:22', '3', 1);
+INSERT INTO `sys_order` VALUES ('20190313135362639', 39, 1, 2.00, 4, 8.00, '2019-03-13 13:54:25', '3', 1);
+INSERT INTO `sys_order` VALUES ('20190313140348839', 39, 1, 2.00, 5, 10.00, '2019-03-13 14:03:40', '3', 1);
 
 -- ----------------------------
 -- Table structure for sys_role
@@ -248,7 +287,7 @@ CREATE TABLE `user_address`  (
 -- ----------------------------
 -- Records of user_address
 -- ----------------------------
-INSERT INTO `user_address` VALUES (39, '重庆市巴南区重庆工程学院');
+INSERT INTO `user_address` VALUES (39, '重庆市巴南区重庆工程学院<>重庆市巴南区重庆工程学院<>重庆市巴南区重庆工程学院');
 
 -- ----------------------------
 -- Procedure structure for getMenuListByUserName
