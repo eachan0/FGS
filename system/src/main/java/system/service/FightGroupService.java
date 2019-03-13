@@ -14,5 +14,6 @@ public interface FightGroupService {
     int add(FightGroup entity);
     int del(List<Integer> list);
     int update(FightGroup entity);
+    int updateCurrentNum(List<Integer> list);
     FightGroup getByProId(Integer id);
 }

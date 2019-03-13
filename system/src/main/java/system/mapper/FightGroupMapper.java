@@ -78,4 +78,5 @@ public interface FightGroupMapper {
      * @mbg.generated
      */
     int updateByPrimaryKey(FightGroup record);
+    int updateCurrentNum(Integer id);
 }

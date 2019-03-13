@@ -36,8 +36,11 @@ public class FightGroupController {
     }
 
     @PutMapping("/fightgroup")
-    public ResultVO update(@RequestBody FightGroup entity){
-        return ResultVOUtil.sqlResult(service.update(entity));
+    public ResultVO update(@RequestBody List<Integer> list){
+        if (list.size()<2){
+            return ResultVOUtil.error(ExcptionEnum.DATA_NULL);
+        }
+        return ResultVOUtil.sqlResult(service.updateCurrentNum(list));
     }
 
     @GetMapping("/fightgroup")

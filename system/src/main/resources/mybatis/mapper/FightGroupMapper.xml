@@ -225,4 +225,7 @@
       status = #{status,jdbcType=INTEGER}
     where pro_id = #{proId,jdbcType=INTEGER}
   </update>
+  <update id="updateCurrentNum" parameterType="integer">
+    UPDATE fight_group SET current_num = current_num+1 where pro_id = #{xxx}
+  </update>
 </mapper>
