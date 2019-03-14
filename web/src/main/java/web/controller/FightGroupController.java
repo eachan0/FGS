@@ -25,9 +25,13 @@ public class FightGroupController {
     @PostMapping("/fightgroup")
     public ResultVO add(@RequestBody FightGroup entity){
         if (entity.getProId()!=null && entity.getProId()>0){
+            FightGroup fg = service.getByProId(entity.getProId());
+            if (fg==null){
+                return ResultVOUtil.sqlResult(service.add(entity));
+            }
             return ResultVOUtil.sqlResult(service.update(entity));
         }
-        return ResultVOUtil.sqlResult(service.add(entity));
+        return ResultVOUtil.error(ExcptionEnum.DATA_NULL);
     }
 
     @DeleteMapping("/fightgroup")

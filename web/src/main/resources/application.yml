@@ -34,6 +34,7 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
 
 logging:
+  file: spring_fgs.log
   level:
     system: debug
 
