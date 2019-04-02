@@ -19,10 +19,10 @@ import java.io.IOException;
 
 /**
  * Token过滤器
- * 
- * @author 小威老师
  *
- *         2017年10月14日
+ * @author zhuyc
+ *
+ *         2018年12月14日
  */
 @Component
 public class TokenFilter extends OncePerRequestFilter {
@@ -55,7 +55,7 @@ public class TokenFilter extends OncePerRequestFilter {
 	/**
 	 * 校验时间<br>
 	 * 过期时间与当前时间对比，临近过期10分钟内的话，自动刷新缓存
-	 * 
+	 *
 	 * @param loginUser
 	 * @return
 	 */
@@ -73,7 +73,7 @@ public class TokenFilter extends OncePerRequestFilter {
 
 	/**
 	 * 根据参数或者header获取token
-	 * 
+	 *
 	 * @param request
 	 * @return
 	 */

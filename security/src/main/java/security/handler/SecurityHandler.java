@@ -26,10 +26,8 @@ import java.io.IOException;
 
 /**
  * spring security处理器
- * 
- * @author 小威老师
  *
- *         2017年10月16日
+ * @author zhuyc
  */
 @Configuration
 public class SecurityHandler {
@@ -39,7 +37,7 @@ public class SecurityHandler {
 
 	/**
 	 * 登陆成功，返回Token
-	 * 
+	 *
 	 * @return
 	 */
 	@Bean
@@ -57,7 +55,7 @@ public class SecurityHandler {
 
 	/**
 	 * 登陆失败
-	 * 
+	 *
 	 * @return
 	 */
 	@Bean
@@ -93,7 +91,7 @@ public class SecurityHandler {
 
 	/**
 	 * 未登录，返回401
-	 * 
+	 *
 	 * @return
 	 */
 	@Bean
@@ -111,7 +109,7 @@ public class SecurityHandler {
 
 	/**
 	 * 退出处理
-	 * 
+	 *
 	 * @return
 	 */
 	@Bean

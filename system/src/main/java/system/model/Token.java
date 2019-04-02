@@ -6,10 +6,10 @@ import java.io.Serializable;
 
 /**
  * Restful方式登陆token
- * 
- * @author 小威老师
  *
- *         2017年8月4日
+ * @author zhuyc
+ *
+ *         2018年12月14日
  */
 @ToString
 public class Token implements Serializable {
