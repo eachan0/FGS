@@ -7,7 +7,7 @@ spring:
       date-format: yyyy-MM-dd HH:mm:ss
       time-zone: GMT+8
   redis:
-    password: Zycrds1024
+    password: 123456
 server:
   port: 8090
   servlet:
