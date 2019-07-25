@@ -2,12 +2,18 @@ spring:
   application:
     name: FGS
   profiles:
-    active: dev
+    active: druid
   jackson:
       date-format: yyyy-MM-dd HH:mm:ss
       time-zone: GMT+8
   redis:
     password: 123456
+  datasource:                                              #配置数据源
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 123456
+    url: jdbc:mysql://localhost:3306/bysj_fgs?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC
+    type: com.alibaba.druid.pool.DruidDataSource
 server:
   port: 8090
   servlet:
@@ -22,23 +28,13 @@ token:
   expire:
     seconds: 7200
   jwtSecret: (XIAO:)_$^11244^%$_(WEI:)_@@++--(LAO:)_++++_.sds_(SHI:)
-
+logging:
+  level:
+    io.swagger.models.parameters.AbstractSerializableParameter: error
 #开发环境
 ---
-
+logging:
+  level:
+    system.mapper: debug
 spring:
   profiles: dev
-  datasource:                                              #配置数据源
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    password: 123456
-    url: jdbc:mysql://localhost:3306/bysj_fgs?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC
-    type: com.alibaba.druid.pool.DruidDataSource
-
-logging:
-  file: spring_fgs.log
-  level:
-    system: debug
-
-
-

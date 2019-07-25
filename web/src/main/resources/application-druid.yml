@@ -1,0 +1,30 @@
+spring:
+  datasource:
+    druid:
+      max-open-prepared-statements: 30
+      web-stat-filter:
+        session-stat-enable: true
+        url-pattern: /*
+        exclusions: '*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*'
+        profile-enable: true
+        enabled: true
+      test-while-idle: true
+      time-between-eviction-runs-millis: 60000
+      initial-size: 10
+      max-active: 20
+      validation-query: select 1 from dual
+      max-wait: 120000
+      filter:
+        stat:
+          merge-sql: true
+          slow-sql-millis: 10000
+          enabled: true
+          log-slow-sql: true
+        wall:
+          enabled: true
+      test-on-borrow: true
+      stat-view-servlet:
+        enabled: true
+      pool-prepared-statements: false
+      min-evictable-idle-time-millis: 30000
+      test-on-return: false

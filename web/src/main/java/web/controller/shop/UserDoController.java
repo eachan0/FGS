@@ -1,12 +1,8 @@
 package web.controller.shop;
 
-import io.swagger.models.auth.In;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import sun.misc.BASE64Encoder;
 import system.DTO.FormUser;
 import system.VO.ResultVO;
 import system.entity.SysUser;
@@ -14,9 +10,7 @@ import system.entity.UserAddress;
 import system.service.SysUserService;
 import system.service.UserAddressService;
 import system.utils.ResultVOUtil;
-import web.utils.DateUtil;
 
-import java.io.IOException;
 import java.util.Date;
 
 /**

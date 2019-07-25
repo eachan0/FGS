@@ -12,7 +12,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.1.RELEASE</version>
+        <version>2.1.6.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -26,15 +26,15 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>1.8</java.version>
+        <java.version>11</java.version>
         <mysql.version>8.0.16</mysql.version>
         <mybatis.version>1.3.2</mybatis.version>
-        <lombok.version>1.18.4</lombok.version>
-        <fastjson.version>1.2.54</fastjson.version>
-        <druid.version>1.1.10</druid.version>
-        <druid-start.version>1.1.10</druid-start.version>
+        <lombok.version>1.18.8</lombok.version>
+        <fastjson.version>1.2.58</fastjson.version>
+        <druid.version>1.1.17</druid.version>
         <model.version>1.0-SNAPSHOT</model.version>
         <jjwt.version>0.9.1</jjwt.version>
+        <skipTests>true</skipTests>
     </properties>
 
     <dependencies>
@@ -83,7 +83,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>
-            <version>${druid-start.version}</version>
+            <version>${druid.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt -->
         <dependency>
@@ -101,5 +101,6 @@
             <artifactId>commons-collections4</artifactId>
             <version>4.2</version>
         </dependency>
+
     </dependencies>
 </project>
