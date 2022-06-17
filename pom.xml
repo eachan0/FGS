@@ -30,7 +30,7 @@
         <mysql.version>8.0.16</mysql.version>
         <mybatis.version>1.3.2</mybatis.version>
         <lombok.version>1.18.8</lombok.version>
-        <fastjson.version>1.2.58</fastjson.version>
+        <fastjson.version>1.2.83</fastjson.version>
         <druid.version>1.1.17</druid.version>
         <model.version>1.0-SNAPSHOT</model.version>
         <jjwt.version>0.9.1</jjwt.version>
